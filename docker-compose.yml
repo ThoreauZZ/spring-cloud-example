@@ -1,0 +1,36 @@
+mysql:
+  image: erdaoya/cloud-data-mysql
+  ports:
+   - "3306:3306"
+
+config:
+  image: erdaoya/cloud-config-service
+  ports:
+   - "9000:9000"
+
+eureka:
+  image: erdaoya/cloud-eureka-service
+  ports:
+   - "9001:9001"
+  links:
+   - config
+
+user:
+  image: erdaoya/cloud-user-service
+  ports:
+   - "9002:9002"
+  links:
+   - config:config
+   - eureka:discovery
+   - mysql:db
+
+gateway:
+  image: erdaoya/cloud-api-gateway
+  ports:
+   - "9006:9006"
+  links:
+   - config:config
+   - eureka:discovery
+   - mysql:db
+   - user:user
+
