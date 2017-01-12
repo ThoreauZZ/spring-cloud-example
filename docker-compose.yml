@@ -25,7 +25,7 @@ services:
      - config:config
      - eureka:discovery
      - mysql:db
-    command: ["./wait-for-it.sh", "config:9000"]
+    command: ["./wait-for-it.sh", "config:9000", "--","java","-jar","/cloud-user-service.jar"]
 
   gateway:
     image: erdaoya/cloud-api-gateway
