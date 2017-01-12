@@ -29,4 +29,4 @@ docker-compose up
 
 ### 5. test url:
 * http://localhost:9000/user-service/dev
-* http://10.69.42.86:9006/user/user?id=1&accessToken=anything
+* http://localhost:9006/user/user?id=1&accessToken=anything
