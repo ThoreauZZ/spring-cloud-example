@@ -1,36 +1,39 @@
-mysql:
-  image: erdaoya/cloud-data-mysql
-  ports:
-   - "3306:3306"
+version: '2'
+services:
+  mysql:
+    image: erdaoya/cloud-data-mysql
+    ports:
+     - "3306:3306"
 
-config:
-  image: erdaoya/cloud-config-service
-  ports:
-   - "9000:9000"
+  config:
+    image: erdaoya/cloud-config-service
+    ports:
+     - "9000:9000"
 
-eureka:
-  image: erdaoya/cloud-eureka-service
-  ports:
-   - "9001:9001"
-  links:
-   - config
+  eureka:
+    image: erdaoya/cloud-eureka-service
+    ports:
+     - "9001:9001"
+    links:
+     - config
 
-user:
-  image: erdaoya/cloud-user-service
-  ports:
-   - "9002:9002"
-  links:
-   - config:config
-   - eureka:discovery
-   - mysql:db
+  user:
+    image: erdaoya/cloud-user-service
+    ports:
+     - "9002:9002"
+    links:
+     - config:config
+     - eureka:discovery
+     - mysql:db
+    command: ["./wait-for-it.sh", "config:9000"]
 
-gateway:
-  image: erdaoya/cloud-api-gateway
-  ports:
-   - "9006:9006"
-  links:
-   - config:config
-   - eureka:discovery
-   - mysql:db
-   - user:user
+  gateway:
+    image: erdaoya/cloud-api-gateway
+    ports:
+     - "9006:9006"
+    links:
+     - config:config
+     - eureka:discovery
+     - mysql:db
+     - user:user
 
