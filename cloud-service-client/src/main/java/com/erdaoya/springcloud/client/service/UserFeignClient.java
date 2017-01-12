@@ -2,7 +2,8 @@ package com.erdaoya.springcloud.client.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 /**
  *
  *@author erdaoya
@@ -10,5 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient("user-service")
 public interface UserFeignClient {
-    Object getUser(@RequestParam String id);
+	@RequestMapping(method = RequestMethod.GET)
+    Object getUser(@RequestParam( value= "id" ) String id);
 }
