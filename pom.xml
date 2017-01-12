@@ -15,6 +15,7 @@
         <module>cloud-user-service</module>
         <module>cloud-service-client</module>
         <module>cloud-api-gateway</module>
+        <module>cloud-turbine-dashbord</module>
     </modules>
 
     <parent>
