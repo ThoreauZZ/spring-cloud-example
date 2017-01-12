@@ -27,6 +27,15 @@ services:
      - mysql:db
     command: ["./wait-for-it.sh", "config:9000", "--","java","-jar","/cloud-user-service.jar"]
 
+  client:
+    image: erdaoya/cloud-service-client
+    ports:
+      - "9005:9005"
+    links:
+      - config:config
+         - eureka:discovery
+         - user:user
+
   gateway:
     image: erdaoya/cloud-api-gateway
     ports:
