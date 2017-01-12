@@ -45,4 +45,10 @@ services:
      - eureka:discovery
      - mysql:db
      - user:user
-
+  turbine:
+    image: erdaoya/cloud-turbine-dashbord
+    ports:
+     - "9010:9010"
+    links:
+     - client:client
+     - eureka:discovery

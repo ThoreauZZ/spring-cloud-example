@@ -20,7 +20,7 @@ public class UserRibbonClient {
     public String getUser(String id) {
         return restTemplate.getForEntity("http://USER-SERVICE/user/user?id="+id, String.class).getBody();
     }
-    public String getUserFallback() {
+    public String getUserFallback(String id) {
         return "error";
     }
 }
