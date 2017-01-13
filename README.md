@@ -38,6 +38,9 @@ Paste url[http://localhost:9010/turbine.stream](http://localhost:9010/turbine.st
 
 5. user-clint-->user: [http://10.69.42.86:9005/client/ribbon?id=1](http://10.69.42.86:9005/client/ribbon?id=1)  
    user-clint-->user: [http://10.69.42.86:9005/client/feign?id=1](http://10.69.42.86:9005/client/feign?id=1)
+6. zipkin ui
+   ![](doc/images/zipkin01.png)
+   ![](doc/images/zipkin02.png)
 
 ## Architecture
 ![](doc/images/MicroService.png)
