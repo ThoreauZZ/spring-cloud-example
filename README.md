@@ -23,7 +23,11 @@ docker-compose up
 ```
 
 ### test url:
-* Eureka dashbord:http://localhost:9001/
-* Turbine dashbord:http://10.69.42.86:9010/hystrix
-* http://localhost:9000/user-service/dev
+* Config : http://localhost:9000/user-service/dev
+* Eureka-dashbord : http://localhost:9001/
+![](doc/images/eureka-admin.png)
+* Turbine-dashbord : http://localhost:9010/hystrix
+
+http://10.69.42.86:9010/turbine.stream
+
 * http://localhost:9006/user/user?id=1&token=anything

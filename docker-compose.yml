@@ -51,4 +51,5 @@ services:
      - "9010:9010"
     links:
      - client:client
+     - user:user
      - eureka:discovery
