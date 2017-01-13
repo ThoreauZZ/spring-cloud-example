@@ -15,7 +15,6 @@
     </parent>
 
     <dependencies>
-        <!--config server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-netflix-turbine</artifactId>
