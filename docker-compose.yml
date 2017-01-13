@@ -16,7 +16,12 @@ services:
      - "9001:9001"
     links:
      - config
-
+  zipkin:
+    image: erdaoya/cloud-zipkin-ui
+    ports:
+      - "9012:9012"
+    links:
+      - eureka:discovery
   user:
     image: erdaoya/cloud-user-service
     ports:
@@ -25,6 +30,7 @@ services:
      - config:config
      - eureka:discovery
      - mysql:db
+     - zipkin:zipkin
     command: ["./wait-for-it.sh", "config:9000", "--","java","-jar","/cloud-user-service.jar"]
 
   client:
@@ -35,6 +41,7 @@ services:
       - config:config
       - eureka:discovery
       - user:user
+      - zipkin:zipkin
 
   gateway:
     image: erdaoya/cloud-api-gateway
@@ -46,6 +53,8 @@ services:
      - mysql:db
      - user:user
      - client:client
+     - zipkin:zipkin
+
   turbine:
     image: erdaoya/cloud-turbine-dashbord
     ports:

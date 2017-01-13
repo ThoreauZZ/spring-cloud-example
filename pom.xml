@@ -17,6 +17,7 @@
         <module>cloud-service-client</module>
         <module>cloud-api-gateway</module>
         <module>cloud-turbine-dashbord</module>
+        <module>cloud-zipkin-ui</module>
     </modules>
 
     <parent>
@@ -64,12 +65,22 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR3</version>
+                <version>Camden.SR4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <build>
         <pluginManagement>
             <plugins>

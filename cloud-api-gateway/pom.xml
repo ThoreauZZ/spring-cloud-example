@@ -31,19 +31,12 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
-    </dependencies>
-<!--    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Brixton.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>
