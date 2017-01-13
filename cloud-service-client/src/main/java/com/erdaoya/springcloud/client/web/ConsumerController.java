@@ -1,6 +1,6 @@
 package com.erdaoya.springcloud.client.web;
 
-import com.erdaoya.springcloud.client.service.UserRibbonClient;
+import com.erdaoya.springcloud.client.client.UserRibbonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

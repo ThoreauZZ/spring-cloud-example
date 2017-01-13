@@ -25,14 +25,14 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @ApiOperation(value="get user by id", notes="")
+    @ApiOperation(value = "get user by id", notes = "")
     @ApiImplicitParam(name = "id", value = "user id ", required = true, paramType = "query")
     @RequestMapping(method = RequestMethod.GET)
     public User doGet(@RequestParam String id) {
         return userDao.selectUserById(id);
     }
 
-    @ApiOperation(value="create user", notes="")
+    @ApiOperation(value = "create user", notes = "")
     @ApiImplicitParam(name = "user", value = "user vo ", required = true, dataType = "User")
     @RequestMapping(method = RequestMethod.POST)
     public void doGet(User User) {

@@ -1,4 +1,4 @@
-package com.erdaoya.springcloud.client.service;
+package com.erdaoya.springcloud.client.client;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;

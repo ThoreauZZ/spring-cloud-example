@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+	    <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
         <module>cloud-config-service</module>
         <module>cloud-eureka-service</module>

@@ -1,4 +1,4 @@
-package com.erdaoya.springcloud.client.service;
+package com.erdaoya.springcloud.client.client;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
