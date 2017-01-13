@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 2017/1/13
  * @author erdaoya
- * @data 2016/12/25 21:25
+ * @since 1.0
  */
 @RestController
 @RequestMapping("/user/user")

@@ -7,9 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 2017/1/13
  *
- *@author erdaoya
- *@data 2016/12/25 22:04
+ * @author erdaoya
+ * @since 1.0
  */
 @Slf4j
 public class AccessFilter extends ZuulFilter {
@@ -34,8 +35,8 @@ public class AccessFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         log.info(String.format("request method:%s, request url: %s", request.getMethod(), request.getRequestURL().toString()));
-        Object accessToken = request.getParameter("accessToken");
-        if(accessToken == null) {
+        Object accessToken = request.getParameter("token");
+        if (accessToken == null) {
             log.warn("access token is empty");
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);

@@ -11,9 +11,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
+ * 2017/1/13
  *
- *@author erdaoya
- *@data 2016/12/25 20:22
+ * @author erdaoya
+ * @since 1.0
  */
 @Configuration
 @EnableSwagger2
@@ -27,6 +28,7 @@ public class Swagger2 {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("RESTful APIs")

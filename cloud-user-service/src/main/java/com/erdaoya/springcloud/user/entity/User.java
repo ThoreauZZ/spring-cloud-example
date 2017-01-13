@@ -4,8 +4,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author erdaoya
- * @date 16/12/25 下午5:54
+ * 2017/1/13
+ * @author  erdaoya
+ * @since   1.0
  */
 @Data
 public class User {

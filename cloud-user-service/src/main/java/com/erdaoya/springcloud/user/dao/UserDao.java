@@ -7,9 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * 
+ * 2017/1/13
+ *
  * @author erdaoya
- * @date 16/12/25 下午5:54
+ * @since 1.0
  */
 @Repository
 public class UserDao {
@@ -17,7 +18,7 @@ public class UserDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public User selectUserById(String id){
+    public User selectUserById(String id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
     }
 

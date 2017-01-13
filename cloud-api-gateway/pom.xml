@@ -5,15 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cloud-api-gateway</artifactId>
-    <version>0.1</version>
     <packaging>jar</packaging>
-
     <name>cloud-api-gateway</name>
 
     <parent>
         <groupId>com.erdaoya</groupId>
         <artifactId>spring-cloud-example-parent</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -28,14 +26,13 @@
             <artifactId>spring-cloud-starter-zuul</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
     </dependencies>
-    <dependencyManagement>
+<!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -45,7 +42,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
 
     <build>
         <plugins>

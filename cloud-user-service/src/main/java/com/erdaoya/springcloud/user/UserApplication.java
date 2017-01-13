@@ -7,9 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 /**
+ * 2017/1/13
  *
- *@author erdaoya
- *@data 2016/12/25 19:01
+ * @author erdaoya
+ * @since 1.0
  */
 @SpringBootApplication
 @ImportResource("spring/spring-boot.xml")
@@ -18,10 +19,10 @@ import org.springframework.context.annotation.ImportResource;
 public class UserApplication {
     public static void main(String[] args) {
         long starTime = System.currentTimeMillis();
-        SpringApplication.run(UserApplication.class,args);
-        long endTime=System.currentTimeMillis();
-        long Time=endTime-starTime;
-        System.out.println("\nStart Time: "+ Time/1000 +" s");
+        SpringApplication.run(UserApplication.class, args);
+        long endTime = System.currentTimeMillis();
+        long time = endTime - starTime;
+        System.out.println("\nStart Time: " + time / 1000 + " s");
         System.out.println("...............................................................");
         System.out.println("..................Service starts successfully..................");
         System.out.println("...............................................................");
