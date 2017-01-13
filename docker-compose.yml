@@ -45,6 +45,7 @@ services:
      - eureka:discovery
      - mysql:db
      - user:user
+     - client:client
   turbine:
     image: erdaoya/cloud-turbine-dashbord
     ports:
