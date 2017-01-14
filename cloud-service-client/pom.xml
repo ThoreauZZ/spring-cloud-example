@@ -41,10 +41,6 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -52,8 +48,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+        </dependency>
+
 
 
     </dependencies>
