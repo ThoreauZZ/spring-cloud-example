@@ -3,7 +3,7 @@ services:
   mysql:
     image: erdaoya/cloud-data-mysql
     ports:
-     - "3306:3306"
+      - "3306:3306"
 
   rabbitmq:
     image: rabbitmq:management
@@ -16,15 +16,15 @@ services:
   eureka:
     image: erdaoya/cloud-eureka-server
     ports:
-     - "9001:9001"
+      - "9001:9001"
 
   config:
     image: erdaoya/cloud-config-server
     ports:
-     - "9000:9000"
+      - "9000:9000"
     links:
-     - eureka:discovery
-     - rabbitmq:rabbitmq
+      - eureka:discovery
+      - rabbitmq:rabbitmq
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
@@ -36,13 +36,13 @@ services:
   user:
     image: erdaoya/cloud-user-service
     ports:
-     - "9002:9002"
+      - "9002:9002"
     links:
-     - config:config
-     - eureka:discovery
-     - mysql:db
-     - zipkin:zipkin
-     - rabbitmq:rabbitmq
+      - config:config
+      - eureka:discovery
+      - mysql:db
+      - zipkin:zipkin
+      - rabbitmq:rabbitmq
     command: ["./wait-for-it.sh", "config:9000","--","java","-jar","/cloud-user-service.jar"]
 
   trade:
@@ -71,23 +71,23 @@ services:
   gateway:
     image: erdaoya/cloud-api-gateway
     ports:
-     - "9006:9006"
+      - "9006:9006"
     links:
-     - config:config
-     - eureka:discovery
-     - mysql:db
-     - user:user
-     - trade:trade
-     - ext:ext
-     - zipkin:zipkin
-     - rabbitmq:rabbitmq
+      - config:config
+      - eureka:discovery
+      - mysql:db
+      - user:user
+      - trade:trade
+      - ext:ext
+      - zipkin:zipkin
+      - rabbitmq:rabbitmq
 
   turbine:
     image: erdaoya/cloud-turbine-dashbord
     ports:
-     - "9010:9010"
+      - "9010:9010"
     links:
-     - ext:ext
-     - user:user
-     - trade:trade
-     - eureka:discovery
+      - ext:ext
+      - user:user
+      - trade:trade
+      - eureka:discovery
