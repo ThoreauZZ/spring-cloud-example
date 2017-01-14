@@ -5,6 +5,12 @@ services:
     ports:
      - "3306:3306"
 
+  rabbitmq:
+      image: rabbitmq:management
+      ports:
+       - "5672:5672"
+       - "15672:15672"
+
   config:
     image: erdaoya/cloud-config-service
     ports:
@@ -22,6 +28,7 @@ services:
       - "9012:9012"
     links:
       - eureka:discovery
+      - rabbitmq:rabbitmq
   user:
     image: erdaoya/cloud-user-service
     ports:
@@ -31,6 +38,7 @@ services:
      - eureka:discovery
      - mysql:db
      - zipkin:zipkin
+     - rabbitmq:rabbitmq
     command: ["./wait-for-it.sh", "config:9000", "--","java","-jar","/cloud-user-service.jar"]
 
   client:
@@ -42,6 +50,7 @@ services:
       - eureka:discovery
       - user:user
       - zipkin:zipkin
+      - rabbitmq:rabbitmq
 
   gateway:
     image: erdaoya/cloud-api-gateway
@@ -54,6 +63,7 @@ services:
      - user:user
      - client:client
      - zipkin:zipkin
+     - rabbitmq:rabbitmq
 
   turbine:
     image: erdaoya/cloud-turbine-dashbord
