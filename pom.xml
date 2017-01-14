@@ -11,8 +11,8 @@
     <modules>
 	    <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
-        <module>cloud-config-service</module>
-        <module>cloud-eureka-service</module>
+        <module>cloud-config-server</module>
+        <module>cloud-eureka-server</module>
         <module>cloud-user-service</module>
         <module>cloud-service-client</module>
         <module>cloud-api-gateway</module>

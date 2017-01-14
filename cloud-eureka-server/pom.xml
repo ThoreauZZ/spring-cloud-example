@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-config-service</artifactId>
+    <artifactId>cloud-eureka-server</artifactId>
     <packaging>jar</packaging>
-    <name>cloud-config-service</name>
+    <name>cloud-eureka-server</name>
 
     <parent>
         <groupId>com.erdaoya</groupId>
@@ -15,23 +15,15 @@
     </parent>
 
     <dependencies>
-        <!--config server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
     </dependencies>
-    <!--    <dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-dependencies</artifactId>
-                    <version>Brixton.RELEASE</version>
-                    <type>pom</type>
-                    <scope>import</scope>
-                </dependency>
-            </dependencies>
-        </dependencyManagement>-->
 
     <build>
         <plugins>

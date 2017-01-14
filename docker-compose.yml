@@ -15,12 +15,12 @@ services:
        - "15672:15672"
 
   config:
-    image: erdaoya/cloud-config-service
+    image: erdaoya/cloud-config-server
     ports:
      - "9000:9000"
 
   eureka:
-    image: erdaoya/cloud-eureka-service
+    image: erdaoya/cloud-eureka-server
     ports:
      - "9001:9001"
     links:
