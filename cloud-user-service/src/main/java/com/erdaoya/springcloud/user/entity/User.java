@@ -16,7 +16,7 @@ public class User {
     private String password;
     private String mobile;
     private String email;
-    private String gender;
+    private Integer gender;
     private Long registerTome;
     private Long updateTime;
 }
