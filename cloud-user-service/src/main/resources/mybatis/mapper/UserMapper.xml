@@ -3,10 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.erdaoya.springcloud.user.mapper.UserMapper">
-	<select id="selectUserById" parameterType="string" resultType="user">
-        SELECT id,username,password FROM user WHERE id = #{id}
+	<select id="selectUserById" parameterType="long" resultType="user">
+        SELECT id,loginName,password,nickName,mobile,email,gender,registerTime, updateTime FROM user WHERE id = #{id}
     </select>
     <insert id="insertUser" parameterType="user">
-        INSERT INTO user VALUES(#{id},#{username},#{password});
+        INSERT INTO user VALUES(#{id},#{loginName},#{password},#{mobile}, #{email}, #{gender}, now());
     </insert>
 </mapper>
