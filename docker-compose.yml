@@ -43,7 +43,18 @@ services:
      - mysql:db
      - zipkin:zipkin
      - rabbitmq:rabbitmq
-    command: ["./wait-for-it.sh", "config:9000","--","./wait-for-it.sh", "discovery:9001","--","java","-jar","/cloud-user-service.jar"]
+    command: ["./wait-for-it.sh", "config:9000","--","java","-jar","/cloud-user-service.jar"]
+
+  trade:
+    image: erdaoya/cloud-trade-service
+    ports:
+      - "9002:9002"
+    links:
+      - config:config
+      - eureka:discovery
+      - mysql:db
+      - zipkin:zipkin
+      - rabbitmq:rabbitmq
 
   ext:
     image: erdaoya/cloud-service-ext
@@ -53,6 +64,7 @@ services:
       - config:config
       - eureka:discovery
       - user:user
+      - trade:trade
       - zipkin:zipkin
       - rabbitmq:rabbitmq
 
@@ -65,6 +77,7 @@ services:
      - eureka:discovery
      - mysql:db
      - user:user
+     - trade:trade
      - ext:ext
      - zipkin:zipkin
      - rabbitmq:rabbitmq
@@ -76,4 +89,5 @@ services:
     links:
      - ext:ext
      - user:user
+     - trade:trade
      - eureka:discovery
