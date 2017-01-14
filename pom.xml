@@ -14,7 +14,7 @@
         <module>cloud-config-server</module>
         <module>cloud-eureka-server</module>
         <module>cloud-user-service</module>
-        <module>cloud-service-client</module>
+        <module>cloud-service-ext</module>
         <module>cloud-api-gateway</module>
         <module>cloud-turbine-dashbord</module>
         <module>cloud-zipkin-ui</module>

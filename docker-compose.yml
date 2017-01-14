@@ -44,8 +44,8 @@ services:
      - rabbitmq:rabbitmq
     command: ["./wait-for-it.sh", "config:9000", "--","java","-jar","/cloud-user-service.jar"]
 
-  client:
-    image: erdaoya/cloud-service-client
+  ext:
+    image: erdaoya/cloud-service-ext
     ports:
       - "9005:9005"
     links:
@@ -64,7 +64,7 @@ services:
      - eureka:discovery
      - mysql:db
      - user:user
-     - client:client
+     - ext:ext
      - zipkin:zipkin
      - rabbitmq:rabbitmq
 
@@ -73,6 +73,6 @@ services:
     ports:
      - "9010:9010"
     links:
-     - client:client
+     - ext:ext
      - user:user
      - eureka:discovery

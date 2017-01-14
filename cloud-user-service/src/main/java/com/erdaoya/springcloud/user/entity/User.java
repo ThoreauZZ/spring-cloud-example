@@ -17,6 +17,6 @@ public class User {
     private String mobile;
     private String email;
     private Integer gender;
-    private Long registerTome;
+    private Long registerTime;
     private Long updateTime;
 }

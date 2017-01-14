@@ -13,7 +13,7 @@ CREATE TABLE `user` (
   `loginName` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nickName` varchar(255) DEFAULT NULL,
-  `nobile` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
   `gender` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `registerTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
