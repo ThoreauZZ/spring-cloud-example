@@ -48,7 +48,7 @@ services:
   trade:
     image: erdaoya/cloud-trade-service
     ports:
-      - "9002:9002"
+      - "9007:9007"
     links:
       - config:config
       - eureka:discovery
