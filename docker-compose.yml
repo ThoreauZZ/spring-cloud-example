@@ -22,6 +22,7 @@ services:
     image: erdaoya/cloud-config-server
     ports:
      - "9000:9000"
+    links:
      - eureka:discovery
      - rabbitmq:rabbitmq
 
