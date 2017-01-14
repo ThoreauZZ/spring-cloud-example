@@ -6,25 +6,25 @@ services:
      - "3306:3306"
 
   rabbitmq:
-      image: rabbitmq:management
-      expose:
-          - 5672
-          - 15672
-      ports:
-       - "5672:5672"
-       - "15672:15672"
+    image: rabbitmq:management
+    expose:
+      - 5672
+      - 15672
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  eureka:
+    image: erdaoya/cloud-eureka-server
+    ports:
+     - "9001:9001"
 
   config:
     image: erdaoya/cloud-config-server
     ports:
      - "9000:9000"
+     - eureka:discovery
+     - rabbitmq:rabbitmq
 
-  eureka:
-    image: erdaoya/cloud-eureka-server
-    ports:
-     - "9001:9001"
-    links:
-     - config
   zipkin:
     image: erdaoya/cloud-zipkin-ui
     ports:
