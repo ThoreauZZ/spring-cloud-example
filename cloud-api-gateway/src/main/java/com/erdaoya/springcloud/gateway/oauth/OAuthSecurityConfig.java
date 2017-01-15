@@ -42,26 +42,26 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("app");
     }
 }
-//
-//@Configuration
-//class RestSecurityConfig extends WebSecurityConfigurerAdapter {
-////    @Override
-////    protected void configure(HttpSecurity http) throws Exception {
-////        http.anonymous().disable()
-////                .sessionManagement()
-////                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-////                .and()
-////                .exceptionHandling()
-////                .and()
-////                .authorizeRequests()
-////                .anyRequest().authenticated().and().csrf().disable();
-////    }
-//
-//
-////    // 不需要权限控制的路径
-////    @Override
-////    public void configure(WebSecurity web) throws Exception {
-////        web.ignoring().antMatchers("/mappings", "/health", "/hystrix.stream/**", "/info", "/error");
-////    }
-//}
+
+@Configuration
+class RestSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.anonymous().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated().and().csrf().disable();
+    }
+
+
+    // 不需要权限控制的路径
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/env","/trace","/metrics","/mappings", "/health", "/hystrix.stream/**", "/info", "/error");
+    }
+}
 
