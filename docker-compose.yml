@@ -91,3 +91,11 @@ services:
       - user:user
       - trade:trade
       - eureka:discovery
+
+  admin:
+    image: erdaoya/cloud-admin-ui
+    ports:
+      - "9003:9003"
+    links:
+      - turbine:turbine
+      - eureka:discovery

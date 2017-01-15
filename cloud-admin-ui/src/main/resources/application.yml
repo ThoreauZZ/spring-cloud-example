@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: amdin-ui
+
+sever:
+  port: 9003
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://discovery:9001/eureka/
+
+spring.boot.admin.turbine:
+  clusters: default
+  url: http://turbine:9010/turbine.stream
