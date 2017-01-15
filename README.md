@@ -140,6 +140,7 @@ curl -s http://localhost:9006/user/persionalInfo\?id\=1\&token\=sy\&access_token
    [http://localhost:9003/](http://localhost:9003/)
    ![](doc/images/admin01.png)
    ![](doc/images/admin02.png)
+   ![](doc/images/admin03.png)
 
 ## Architecture
 ![](doc/images/MicroService.png)
