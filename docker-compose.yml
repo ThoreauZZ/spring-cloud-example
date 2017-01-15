@@ -43,7 +43,7 @@ services:
       - mysql:db
       - zipkin:zipkin
       - rabbitmq:rabbitmq
-    command: ["./wait-for-it.sh", "config:9000","--","java","-jar","/cloud-user-service.jar"]
+    command: ["./wait-for-it.sh", "config:9000","--", "./wait-for-it.sh", "discovery:9001","--", "java","-jar","/cloud-user-service.jar"]
 
   trade:
     image: erdaoya/cloud-trade-service
