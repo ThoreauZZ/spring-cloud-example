@@ -83,12 +83,12 @@ Paste url [http://localhost:9010/turbine.stream](http://localhost:9010/turbine.s
 
 #### 5. Get token and test api
 
-With implicit grant, sikp code grant. Use the following URL in a web browser
+With `implicit grant`, sikp code grant. Use the following URL in a web browser
 
 
 [http://localhost:9006/oauth/authorize?client_id=client&secret_id=secret&response_type=token&redirect_uri=http://localhost](http://localhost:9006/oauth/authorize?client_id=client&secret_id=secret&response_type=token&redirect_uri=http://localhost)
 
-Login(user/password),and redirect to a URL like:
+Login(`user`/`password`), and redirect to a URL like:
 
 ```
 http://localhost:9006/#
