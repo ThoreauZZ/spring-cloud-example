@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-	    <module>cloud-user-api</module>
+        <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
         <module>cloud-config-server</module>
         <module>cloud-admin-ui</module>
@@ -93,6 +93,17 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
