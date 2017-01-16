@@ -83,7 +83,7 @@ services:
       - rabbitmq:rabbitmq
 
   turbine:
-    image: erdaoya/cloud-turbine-dashbord
+    image: erdaoya/cloud-turbine-dashboard
     ports:
       - "9010:9010"
     links:

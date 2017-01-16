@@ -18,7 +18,7 @@
         <module>cloud-trade-service</module>
         <module>cloud-service-ext</module>
         <module>cloud-api-gateway</module>
-        <module>cloud-turbine-dashbord</module>
+        <module>cloud-turbine-dashboard</module>
         <module>cloud-zipkin-ui</module>
     </modules>
 
