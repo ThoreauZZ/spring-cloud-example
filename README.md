@@ -1,4 +1,5 @@
 # spring-cloud-example
+---
 ## Quick Start
 ### Requirements
 The requirements for running this example on your machine are found below.
@@ -24,8 +25,7 @@ docker-compose up
 
 ### Test And Verify:
  
- [detail](doc/1.Test And Verify.md)
-
+ Click [here](doc/1.Test And Verify.md) for details
 
 
 ## Architecture
