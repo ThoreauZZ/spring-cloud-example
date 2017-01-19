@@ -23,7 +23,7 @@ public class OrderController {
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public Object getUserByRibbon(String id) {
-        return restTemplate.getForEntity("http://TRADE-SERVICE/trade/order?id=" + id, Long.class).getBody();
+        return restTemplate.getForEntity("http://TRADE-SERVICE/trade/order?id=" + id, Object.class).getBody();
     }
 
 }
