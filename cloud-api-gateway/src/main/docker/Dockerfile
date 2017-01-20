@@ -1,6 +1,11 @@
 FROM java:8
-VOLUME /tmp
-ADD cloud-api-gateway-1.0-SNAPSHOT.jar cloud-api-gateway.jar
-RUN bash -c 'touch /cloud-api-gateway.jar'
-EXPOSE 9006
-ENTRYPOINT ["java","-jar","/cloud-api-gateway.jar"]
+MAINTAINER erdaoya
+
+ADD @project.build.finalName@.jar cloud-app.jar
+RUN sh -c 'touch /cloud-app.jar'
+
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar", "/cloud-app.jar"]
+
+
+
+

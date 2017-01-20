@@ -1,9 +1,13 @@
 FROM java:8
-VOLUME /tmp
-ADD cloud-trade-service-1.0-SNAPSHOT.jar cloud-trade-service.jar
+MAINTAINER erdaoya
+
+ADD @project.build.finalName@.jar cloud-app.jar
 ADD wait-for-it.sh wait-for-it.sh
-RUN bash -c 'touch /cloud-trade-service.jar' && \
+RUN sh -c 'touch /cloud-app.jar'  && \
     chmod +x wait-for-it.sh
-EXPOSE 9007
-CMD ["/bin/sh", "wait-for-it.sh", "config:9000"]
-CMD ["java","-jar","/cloud-trade-service.jar"]
+
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar", "/cloud-app.jar"]
+
+
+
+

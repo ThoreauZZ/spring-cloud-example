@@ -30,9 +30,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
 
-        <docker.plugin.version>0.3.258</docker.plugin.version>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
+        <resources.plugin.version>3.0.2</resources.plugin.version>
         <docker.image.prefix>erdaoya</docker.image.prefix>
 
         <spring-boot-admin.version>1.4.5</spring-boot-admin.version>
@@ -94,19 +95,13 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <inherited>false</inherited>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>build-info</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>${resources.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>prepare-dockerfile</id>
@@ -132,6 +127,7 @@
                     <version>${docker.plugin.version}</version>
                     <executions>
                         <execution>
+                            <id>build-image</id>
                             <phase>package</phase>
                             <goals>
                                 <goal>build</goal>
@@ -140,13 +136,18 @@
                     </executions>
                     <configuration>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                       <!-- <imageTags>
+                            <imageTag>${project.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <forceTags>true</forceTags>-->
+                        <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
                         <resources>
                             <resource>
-                                <filtering>true</filtering>
                                 <targetPath>/</targetPath>
                                 <directory>${project.build.directory}</directory>
                                 <include>${project.build.finalName}.jar</include>
+                                <filtering>true</filtering>
                             </resource>
                         </resources>
                     </configuration>

@@ -1,9 +1,11 @@
 FROM java:8
-VOLUME /tmp
-ADD cloud-user-service-1.0-SNAPSHOT.jar cloud-user-service.jar
-ADD wait-for-it.sh wait-for-it.sh
-RUN bash -c 'touch /cloud-user-service.jar' && \
-    chmod +x wait-for-it.sh
-EXPOSE 9002
-CMD ["/bin/sh", "wait-for-it.sh", "config:9000"]
-CMD ["java","-jar","/cloud-user-service.jar"]
+MAINTAINER erdaoya
+
+ADD @project.build.finalName@.jar cloud-app.jar
+RUN sh -c 'touch /cloud-app.jar'
+
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar", "/cloud-app.jar"]
+
+
+
+
