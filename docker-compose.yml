@@ -126,3 +126,4 @@ services:
     environment:
       SERVICE_PORT: 9003
       REGISTRY_URL: http://discovery:9001/eureka
+      TURBINE_URL: http://discovery:9010/turbine.stream

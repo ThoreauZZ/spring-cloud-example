@@ -5,9 +5,10 @@ spring:
   cloud:
     config:
       server:
-        git:uri: https://github.com/ThoreauZZ/spring-cloud-example.git
+        git:
+          uri: https://github.com/ThoreauZZ/spring-cloud-example.git
 #           uri: file:/github/spring-learn
-        searchPaths: config-repo
+          searchPaths: config-repo
 
 
 ---

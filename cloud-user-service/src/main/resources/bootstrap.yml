@@ -10,6 +10,8 @@ spring:
         enabled: true
         serviceId: config-server
 
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
 ---
 spring:
   profiles: dev
@@ -22,9 +24,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
-
-mybatis:
-  config-location: classpath:mybatis/mybatis-config.xml
 ---
 spring:
   profiles: docker
