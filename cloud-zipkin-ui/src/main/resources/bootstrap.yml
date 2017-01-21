@@ -4,9 +4,9 @@ spring:
   profiles:
     active: dev
   cloud:
-      config:
-        failFast: true
-        discovery:
+    config:
+      failFast: true
+      discovery:
         enabled: true
         serviceId: config-server
 ---
@@ -21,8 +21,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
-mybatis:
-  config-location: classpath:mybatis/mybatis-config.xml
 ---
 
 spring:
