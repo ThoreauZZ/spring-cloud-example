@@ -35,5 +35,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${REGISTRY_URL}
+turbine:
+  appConfig: service-ext, api-gateway
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
 
 
