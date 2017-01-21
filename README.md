@@ -22,6 +22,8 @@ wait for a period of time。
 ```
 docker-compose up
 ```
+> Discovery and config shuld be started before all services.
+>   Controlling startup order in `Docker Compose`:[https://docs.docker.com/compose/startup-order/](https://docs.docker.com/compose/startup-order/)
 
 ### Test And Verify:
  

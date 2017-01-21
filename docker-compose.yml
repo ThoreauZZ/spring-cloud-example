@@ -31,6 +31,8 @@ services:
     environment:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
+    depends_on:
+      - config
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
@@ -56,6 +58,9 @@ services:
     environment:
       SERVICE_PORT: 9002
       REGISTRY_URL: http://discovery:9001/eureka
+    depends_on:
+      - eureka
+      - config
 
   trade:
     image: erdaoya/cloud-trade-service
@@ -70,7 +75,9 @@ services:
     environment:
       SERVICE_PORT: 9007
       REGISTRY_URL: http://discovery:9001/eureka
-
+    depends_on:
+      - eureka
+      - config
   ext:
     image: erdaoya/cloud-service-ext
     ports:
@@ -85,7 +92,9 @@ services:
     environment:
       SERVICE_PORT: 9005
       REGISTRY_URL: http://discovery:9001/eureka
-
+    depends_on:
+      - eureka
+      - config
   gateway:
     image: erdaoya/cloud-api-gateway
     ports:
@@ -102,6 +111,9 @@ services:
     environment:
       SERVICE_PORT: 9006
       REGISTRY_URL: http://discovery:9001/eureka
+    depends_on:
+      - eureka
+      - config
 
   turbine:
     image: erdaoya/cloud-turbine-dashboard
@@ -115,7 +127,9 @@ services:
     environment:
       SERVICE_PORT: 9010
       REGISTRY_URL: http://discovery:9001/eureka
-
+    depends_on:
+      - eureka
+      - config
   admin:
     image: erdaoya/cloud-admin-ui
     ports:
@@ -127,3 +141,5 @@ services:
       SERVICE_PORT: 9003
       REGISTRY_URL: http://discovery:9001/eureka
       TURBINE_URL: http://discovery:9010/turbine.stream
+    depends_on:
+      - eureka
