@@ -1,25 +1,24 @@
 spring:
   application:
     name : zipkin-ui
-server:
-  port : 9012
-
-        
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:9001/eureka/
-
-spring:
   profiles:
     active: dev
+---
+
 spring:
+  profiles: dev
   cloud:
     config:
       failFast: true
       discovery:
-        enabled: true
-        serviceId: config-server
+      enabled: true
+      serviceId: config-server
+server:
+  port : 9012
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml

@@ -1,25 +1,27 @@
 spring:
   application:
     name : trade-service
+  profiles.active: dev
+
 server:
   port : 9007
 
-        
+
+---
+spring:
+  profiles: dev
+  cloud:
+      config:
+        failFast: true
+        discovery:
+          enabled: true
+          serviceId: config-server
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
-spring:
-  profiles:
-    active: dev
-spring:
-  cloud:
-    config:
-      failFast: true
-      discovery:
-        enabled: true
-        serviceId: config-server
 
 ---
 

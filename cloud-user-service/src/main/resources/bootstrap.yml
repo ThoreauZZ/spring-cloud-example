@@ -1,6 +1,18 @@
 spring:
   application:
     name : user-service
+  profiles:
+      active: dev
+
+---
+spring:
+  profiles: dev
+  cloud:
+      config:
+        failFast: true
+        discovery:
+          enabled: true
+          serviceId: config-server
 server:
   port : 9002
 
@@ -10,21 +22,9 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
-spring:
-  profiles:
-    active: dev
-spring:
-  cloud:
-    config:
-      failFast: true
-      discovery:
-        enabled: true
-        serviceId: config-server
-
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
 ---
-
 spring:
   profiles: docker
 

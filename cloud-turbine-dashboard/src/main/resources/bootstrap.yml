@@ -1,10 +1,15 @@
 spring:
   application:
     name : turbine-dashboard
+  profiles.active: dev
 server:
   port : 9010
 
-        
+---
+
+spring:
+  profiles: dev
+
 eureka:
   client:
     serviceUrl:

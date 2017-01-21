@@ -1,19 +1,19 @@
 spring:
   application:
     name : api-gateway
+  profiles.active: dev
 server:
   port : 9006
 
-        
+---
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
 spring:
-  profiles:
-    active: dev
-spring:
+  profiles: dev
   cloud:
     config:
       failFast: true
