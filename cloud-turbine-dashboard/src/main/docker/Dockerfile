@@ -1,6 +1,11 @@
 FROM java:8
-VOLUME /tmp
-ADD cloud-turbine-dashboard-1.0-SNAPSHOT.jar cloud-turbine-dashboard.jar
-RUN bash -c 'touch /cloud-turbine-dashboard.jar'
-EXPOSE 9010
-ENTRYPOINT ["java","-jar","/cloud-turbine-dashboard.jar"]
+MAINTAINER erdaoya
+
+ADD @project.build.finalName@.jar cloud-app.jar
+RUN sh -c 'touch /cloud-app.jar'
+
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar", "/cloud-app.jar"]
+
+
+
+
