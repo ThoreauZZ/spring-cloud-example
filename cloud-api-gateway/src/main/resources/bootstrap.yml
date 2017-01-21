@@ -1,0 +1,64 @@
+spring:
+  application:
+    name : api-gateway
+server:
+  port : 9006
+
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+
+spring:
+  profiles:
+    active: dev
+spring:
+  cloud:
+    config:
+      failFast: true
+      discovery:
+        enabled: true
+        serviceId: config-server
+
+security:
+  user:
+    password: password
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+
+logging:
+  level.org.springframework.security: DEBUG
+
+zuul:
+  routes:
+    users:
+      path: /user/**
+      serviceId: user-service
+      stripPrefix: false
+
+    ext:
+      path: /ext/**
+      serviceId: service-ext
+      stripPrefix: false
+
+    trade:
+      path: /trade/**
+      serviceId: trade-service
+      stripPrefix: false
+
+---
+
+spring:
+  profiles: docker
+
+server:
+  port : ${SERVICE_PORT}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
+
+

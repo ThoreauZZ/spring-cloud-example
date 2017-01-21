@@ -17,6 +17,9 @@ services:
     image: erdaoya/cloud-eureka-server
     ports:
       - "9001:9001"
+    environment:
+      SERVICE_HOST: discovery
+      SERVICE_PORT: 9001
 
   config:
     image: erdaoya/cloud-config-server
@@ -25,6 +28,9 @@ services:
     links:
       - eureka:discovery
       - rabbitmq:rabbitmq
+    environment:
+      SERVICE_PORT: 9000
+      REGISTRY_URL: http://discovery:9001/eureka
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
@@ -33,6 +39,10 @@ services:
     links:
       - eureka:discovery
       - rabbitmq:rabbitmq
+    environment:
+      SERVICE_PORT: 9012
+      REGISTRY_URL: http://discovery:9001/eureka
+
   user:
     image: erdaoya/cloud-user-service
     ports:
@@ -43,7 +53,9 @@ services:
       - mysql:db
       - zipkin:zipkin
       - rabbitmq:rabbitmq
-    command: ["./wait-for-it.sh", "config:9000", "--timeout=60", "--", "./wait-for-it.sh", "discovery:9001", "--timeout=60", "--", "java","-jar","/cloud-user-service.jar"]
+    environment:
+      SERVICE_PORT: 9002
+      REGISTRY_URL: http://discovery:9001/eureka
 
   trade:
     image: erdaoya/cloud-trade-service
@@ -55,6 +67,9 @@ services:
       - mysql:db
       - zipkin:zipkin
       - rabbitmq:rabbitmq
+    environment:
+      SERVICE_PORT: 9007
+      REGISTRY_URL: http://discovery:9001/eureka
 
   ext:
     image: erdaoya/cloud-service-ext
@@ -67,6 +82,9 @@ services:
       - trade:trade
       - zipkin:zipkin
       - rabbitmq:rabbitmq
+    environment:
+      SERVICE_PORT: 9005
+      REGISTRY_URL: http://discovery:9001/eureka
 
   gateway:
     image: erdaoya/cloud-api-gateway
@@ -81,6 +99,9 @@ services:
       - ext:ext
       - zipkin:zipkin
       - rabbitmq:rabbitmq
+    environment:
+      SERVICE_PORT: 9006
+      REGISTRY_URL: http://discovery:9001/eureka
 
   turbine:
     image: erdaoya/cloud-turbine-dashboard
@@ -91,6 +112,9 @@ services:
       - user:user
       - trade:trade
       - eureka:discovery
+    environment:
+      SERVICE_PORT: 9010
+      REGISTRY_URL: http://discovery:9001/eureka
 
   admin:
     image: erdaoya/cloud-admin-ui
@@ -99,3 +123,6 @@ services:
     links:
       - turbine:turbine
       - eureka:discovery
+    environment:
+      SERVICE_PORT: 9003
+      REGISTRY_URL: http://discovery:9001/eureka

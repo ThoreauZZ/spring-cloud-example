@@ -1,0 +1,39 @@
+spring:
+  application:
+    name : amdin-ui
+server:
+  port : 9003
+
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+
+spring:
+  boot:
+    admin:
+      turbine:
+        url: http://localhost:9010/turbine.stream
+        clusters: default
+
+---
+spring:
+  profiles: docker
+
+server:
+  port : ${SERVICE_PORT}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
+spring:
+  boot:
+    admin:
+      turbine:
+        url: ${TURBINE_URL}
+        clusters: default
+

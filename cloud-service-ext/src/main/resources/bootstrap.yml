@@ -1,0 +1,39 @@
+spring:
+  application:
+    name : service-ext
+server:
+  port : 9005
+
+        
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+
+spring:
+  profiles:
+    active: dev
+spring:
+  cloud:
+    config:
+      failFast: true
+      discovery:
+        enabled: true
+        serviceId: config-server
+
+---
+
+spring:
+  profiles: docker
+
+server:
+  port : ${SERVICE_PORT}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
+
+
