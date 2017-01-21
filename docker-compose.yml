@@ -32,7 +32,7 @@ services:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
-      - config
+      - eureka
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
