@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: service-registry
+  proflies.active: dev
+
+server:
+  port: 9001
+
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    hostname: localhost
+    port: ${server.port}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+---
+
+spring:
+  profiles: docker
+server:
+  port: ${SERVICE_PORT}
+eureka:
+  instance:
+    hostname: ${SERVICE_HOST}
+    port: ${server.port}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    enable-self-preservation: false

@@ -3,6 +3,8 @@ package com.erdaoya.springcloud.zipkin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.sleuth.zipkin.stream.EnableZipkinStreamServer;
+import zipkin.server.EnableZipkinServer;
 
 /**
  * 2017/1/13
@@ -11,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableZipkinStreamServer
 public class ZipkinServerApplication {
     public static void main(String[] args) {
         long starTime = System.currentTimeMillis();

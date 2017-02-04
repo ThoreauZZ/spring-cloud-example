@@ -9,14 +9,17 @@
     <packaging>pom</packaging>
 
     <modules>
-	    <module>cloud-user-api</module>
+        <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
-        <module>cloud-config-service</module>
-        <module>cloud-eureka-service</module>
+        <module>cloud-config-server</module>
+        <module>cloud-admin-ui</module>
+        <module>cloud-eureka-server</module>
         <module>cloud-user-service</module>
-        <module>cloud-service-client</module>
+        <module>cloud-trade-service</module>
+        <module>cloud-service-ext</module>
         <module>cloud-api-gateway</module>
-        <module>cloud-turbine-dashbord</module>
+        <module>cloud-turbine-dashboard</module>
+        <module>cloud-zipkin-ui</module>
     </modules>
 
     <parent>
@@ -27,15 +30,18 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
 
-        <docker.plugin.version>0.3.258</docker.plugin.version>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
+        <resources.plugin.version>3.0.2</resources.plugin.version>
         <docker.image.prefix>erdaoya</docker.image.prefix>
 
+        <spring-boot-admin.version>1.4.5</spring-boot-admin.version>
         <druid.version>1.0.15</druid.version>
         <lombok.version>1.12.2</lombok.version>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>
         <swagger2.version>2.4.0</swagger2.version>
+        <jolokia.version>1.3.5</jolokia.version>
     </properties>
 
     <dependencies>
@@ -53,6 +59,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+            <version>${jolokia.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -64,21 +75,65 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR3</version>
+                <version>Camden.SR4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${resources.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-dockerfile</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.basedir}/src/main/docker</directory>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${docker.plugin.version}</version>
                     <executions>
                         <execution>
+                            <id>build-image</id>
                             <phase>package</phase>
                             <goals>
                                 <goal>build</goal>
@@ -87,12 +142,18 @@
                     </executions>
                     <configuration>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                       <!-- <imageTags>
+                            <imageTag>${project.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <forceTags>true</forceTags>-->
+                        <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>
                                 <directory>${project.build.directory}</directory>
                                 <include>${project.build.finalName}.jar</include>
+                                <filtering>true</filtering>
                             </resource>
                         </resources>
                     </configuration>

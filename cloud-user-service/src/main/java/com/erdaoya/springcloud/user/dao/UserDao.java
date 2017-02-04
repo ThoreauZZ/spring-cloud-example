@@ -18,7 +18,7 @@ public class UserDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public User selectUserById(String id) {
+    public User selectUserById(Long id) {
         return sqlSessionTemplate.selectOne("selectUserById", id);
     }
 

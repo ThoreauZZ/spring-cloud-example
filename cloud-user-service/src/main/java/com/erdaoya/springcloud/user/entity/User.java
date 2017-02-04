@@ -10,7 +10,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 public class User {
-    private String id;
-    private String username;
+    private Long id;
+    private String loginName;
+    private String nickName;
     private String password;
+    private String mobile;
+    private String email;
+    private Integer gender;
+    private Long registerTime;
+    private Long updateTime;
 }

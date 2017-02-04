@@ -1,0 +1,44 @@
+spring:
+  application:
+    name : turbine-dashboard
+  profiles.active: dev
+server:
+  port : 9010
+
+---
+
+spring:
+  profiles: dev
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+
+turbine:
+  appConfig: service-ext, api-gateway
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+
+---
+
+spring:
+  profiles: docker
+
+server:
+  port : ${SERVICE_PORT}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
+turbine:
+  appConfig: service-ext, api-gateway
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")
+
+
