@@ -10,7 +10,11 @@
 
     <modules>
         <module>cloud-user-api</module>
+	<!--
         <module>cloud-data-mysql</module>
+	-->
+        <module>cloud-comx</module>
+
         <module>cloud-config-server</module>
         <module>cloud-admin-ui</module>
         <module>cloud-eureka-server</module>

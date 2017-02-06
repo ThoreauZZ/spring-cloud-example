@@ -1,10 +1,9 @@
 FROM centos:centos6
 
 RUN yum -y update && \
-    yum clean all && \
     yum -y install epel-release && \
-    yum clean all && \
-    yum -y install mysql-server mysql pwgen supervisor bash-completion psmisc net-tools && \
+    yum -y install mysql-server mysql &&\
+    yum -y install pwgen supervisor bash-completion psmisc net-tools && \
     yum clean all
 
 ADD classes/start.sh /start.sh

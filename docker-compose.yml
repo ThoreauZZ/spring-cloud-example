@@ -1,9 +1,9 @@
 version: '2'
 services:
-  mysql:
-    image: erdaoya/cloud-data-mysql
-    ports:
-      - "3306:3306"
+    #mysql:
+    #myimage: erdaoya/cloud-data-mysql
+    #myports:
+    #  - "3306:3306"
 
   rabbitmq:
     image: rabbitmq:management
@@ -34,95 +34,106 @@ services:
     depends_on:
       - eureka
 
-  zipkin:
-    image: erdaoya/cloud-zipkin-ui
-    ports:
-      - "9012:9012"
-    links:
-      - eureka:discovery
-      - rabbitmq:rabbitmq
-    environment:
-      SERVICE_PORT: 9012
-      REGISTRY_URL: http://discovery:9001/eureka
+        #  zipkin:
+        #    image: erdaoya/cloud-zipkin-ui
+        #    ports:
+        #      - "9012:9012"
+        #    links:
+        #      - eureka:discovery
+        #      - rabbitmq:rabbitmq
+        #    environment:
+        #      SERVICE_PORT: 9012
+        #      REGISTRY_URL: http://discovery:9001/eureka
 
-  user:
-    image: erdaoya/cloud-user-service
-    ports:
-      - "9002:9002"
-    links:
-      - config:config
-      - eureka:discovery
-      - mysql:db
-      - zipkin:zipkin
-      - rabbitmq:rabbitmq
-    environment:
-      SERVICE_PORT: 9002
-      REGISTRY_URL: http://discovery:9001/eureka
-    depends_on:
-      - eureka
-      - config
+        #  user:
+        #    image: erdaoya/cloud-user-service
+        #    ports:
+        #      - "9002:9002"
+        #    links:
+        #      - config:config
+        #      - eureka:discovery
+        #      - zipkin:zipkin
+        #      - rabbitmq:rabbitmq
+        #    environment:
+        #      SERVICE_PORT: 9002
+        #      REGISTRY_URL: http://discovery:9001/eureka
+        #    depends_on:
+        #      - eureka
+        #      - config
 
-  trade:
-    image: erdaoya/cloud-trade-service
+        #  trade:
+        #    image: erdaoya/cloud-trade-service
+        #    ports:
+        #      - "9007:9007"
+        #    links:
+        #      - config:config
+        #      - eureka:discovery
+        #      - zipkin:zipkin
+        #      - rabbitmq:rabbitmq
+        #    environment:
+        #      SERVICE_PORT: 9007
+        #      REGISTRY_URL: http://discovery:9001/eureka
+        #    depends_on:
+        #      - eureka
+        #      - config
+        #  ext:
+        #    image: erdaoya/cloud-service-ext
+        #    ports:
+        #      - "9005:9005"
+        #    links:
+        #      - config:config
+        #      - eureka:discovery
+        #      - user:user
+        #      - trade:trade
+        #      - zipkin:zipkin
+        #      - rabbitmq:rabbitmq
+        #    environment:
+        #      SERVICE_PORT: 9005
+        #      REGISTRY_URL: http://discovery:9001/eureka
+        #    depends_on:
+        #      - eureka
+        #      - config
+        #  gateway:
+        #    image: erdaoya/cloud-api-gateway
+        #    ports:
+        #      - "9006:9006"
+        #    links:
+        #      - config:config
+        #      - eureka:discovery
+        #      - user:user
+        #      - trade:trade
+        #      - ext:ext
+        #      - zipkin:zipkin
+        #      - rabbitmq:rabbitmq
+        #    environment:
+        #      SERVICE_PORT: 9006
+        #      REGISTRY_URL: http://discovery:9001/eureka
+        #    depends_on:
+        #      - eureka
+        #      - config
+
+  comx:
+    image: erdaoya/cloud-comx
     ports:
-      - "9007:9007"
+      - "9019:9019"
     links:
-      - config:config
+      - turbine:turbine
       - eureka:discovery
-      - mysql:db
-      - zipkin:zipkin
-      - rabbitmq:rabbitmq
     environment:
-      SERVICE_PORT: 9007
+      SERVICE_PORT: 9019
       REGISTRY_URL: http://discovery:9001/eureka
+      TURBINE_URL: http://discovery:9010/turbine.stream
     depends_on:
       - eureka
-      - config
-  ext:
-    image: erdaoya/cloud-service-ext
-    ports:
-      - "9005:9005"
-    links:
-      - config:config
-      - eureka:discovery
-      - user:user
-      - trade:trade
-      - zipkin:zipkin
-      - rabbitmq:rabbitmq
-    environment:
-      SERVICE_PORT: 9005
-      REGISTRY_URL: http://discovery:9001/eureka
-    depends_on:
-      - eureka
-      - config
-  gateway:
-    image: erdaoya/cloud-api-gateway
-    ports:
-      - "9006:9006"
-    links:
-      - config:config
-      - eureka:discovery
-      - mysql:db
-      - user:user
-      - trade:trade
-      - ext:ext
-      - zipkin:zipkin
-      - rabbitmq:rabbitmq
-    environment:
-      SERVICE_PORT: 9006
-      REGISTRY_URL: http://discovery:9001/eureka
-    depends_on:
-      - eureka
-      - config
 
   turbine:
     image: erdaoya/cloud-turbine-dashboard
     ports:
       - "9010:9010"
     links:
-      - ext:ext
-      - user:user
-      - trade:trade
+        #- ext:ext
+        #- user:user
+        #- trade:trade
       - eureka:discovery
     environment:
       SERVICE_PORT: 9010
@@ -130,16 +141,16 @@ services:
     depends_on:
       - eureka
       - config
-  admin:
-    image: erdaoya/cloud-admin-ui
-    ports:
-      - "9003:9003"
-    links:
-      - turbine:turbine
-      - eureka:discovery
-    environment:
-      SERVICE_PORT: 9003
-      REGISTRY_URL: http://discovery:9001/eureka
-      TURBINE_URL: http://discovery:9010/turbine.stream
-    depends_on:
-      - eureka
+        #  admin:
+        #    image: erdaoya/cloud-admin-ui
+        #    ports:
+        #      - "9003:9003"
+        #    links:
+        #      - turbine:turbine
+        #      - eureka:discovery
+        #    environment:
+        #      SERVICE_PORT: 9003
+        #      REGISTRY_URL: http://discovery:9001/eureka
+        #      TURBINE_URL: http://discovery:9010/turbine.stream
+        #    depends_on:
+        #      - eureka
