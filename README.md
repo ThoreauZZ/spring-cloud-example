@@ -1,5 +1,6 @@
 # spring-cloud-example
 ---
+[中文](doc/README-CN.md)
 ## Quick Start
 ### Requirements
 The requirements for running this example on your machine are found below.
