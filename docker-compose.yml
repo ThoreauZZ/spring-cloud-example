@@ -31,8 +31,10 @@ services:
     environment:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
+      RABBITMQ_HOST: rabbitmq
     depends_on:
       - eureka
+      - rabbitmq
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui

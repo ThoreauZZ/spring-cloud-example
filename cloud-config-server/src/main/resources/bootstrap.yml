@@ -14,6 +14,12 @@ server:
 ---
 spring:
   profiles: dev
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: '5672'
+    username: guest
+    virtualHost: /
 
 eureka:
   client:
@@ -24,6 +30,12 @@ eureka:
 ---
 spring:
   profiles: docker
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    password: guest
+    port: '5672'
+    username: guest
+    virtualHost: /
 
 server:
   port : ${SERVICE_PORT}
