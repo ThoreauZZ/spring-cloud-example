@@ -1,6 +1,5 @@
 spring:
-  application:
-    name : config-server
+  application.name : config-server
   profiles.active: dev
   cloud:
     config:
@@ -9,26 +8,17 @@ spring:
           uri: https://github.com/ThoreauZZ/spring-cloud-example.git
 #           uri: file:/github/spring-learn
           searchPaths: config-repo
-
+server:
+  port : 9000
 
 ---
 spring:
   profiles: dev
 
-server:
-  port : 9000
-
-  rabbitmq:
-      host: localhost
-      port: 5672
-      username: guest
-      password: guest
-      virtualHost: /
-
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:9001/eureka/
+      defaultZone: http://localhost:9001/eureka/
 
 
 ---
