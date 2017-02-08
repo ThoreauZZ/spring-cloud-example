@@ -117,14 +117,15 @@ services:
     ports:
       - "9019:9019"
     links:
-      - turbine:turbine
       - eureka:discovery
     environment:
       SERVICE_PORT: 9019
       REGISTRY_URL: http://discovery:9001/eureka
-      TURBINE_URL: http://discovery:9010/turbine.stream
+    volumes:
+        - "/www:/www"
     depends_on:
       - eureka
+      - config
 
   turbine:
     image: erdaoya/cloud-turbine-dashboard
