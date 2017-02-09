@@ -1,4 +1,4 @@
-package com.erdaoya.springcloud.gateway.filter;
+package com.erdaoya.springcloud.gateway.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
