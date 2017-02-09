@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
         <module>cloud-config-server</module>
         <module>cloud-admin-ui</module>
