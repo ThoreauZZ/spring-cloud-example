@@ -31,8 +31,10 @@ services:
     environment:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
+      RABBITMQ_HOST: rabbitmq
     depends_on:
       - eureka
+      - rabbitmq
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
@@ -143,3 +145,18 @@ services:
       TURBINE_URL: http://discovery:9010/turbine.stream
     depends_on:
       - eureka
+
+  comx:
+    image: erdaoya/cloud-comx
+    ports:
+      - "9019:9019"
+    links:
+      - eureka:discovery
+    environment:
+      SERVICE_PORT: 9019
+      REGISTRY_URL: http://discovery:9001/eureka
+    volumes:
+        - "/www:/www"
+    depends_on:
+      - eureka
+      - config

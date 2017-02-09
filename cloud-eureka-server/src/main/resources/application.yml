@@ -1,7 +1,7 @@
 spring:
   application:
     name: service-registry
-  proflies.active: dev
+  profiles.active: dev
 
 server:
   port: 9001

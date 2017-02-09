@@ -1,5 +1,6 @@
 package com.erdaoya.springcloud.gateway.filter;
 
+import com.erdaoya.springcloud.gateway.model.ResponseModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +47,7 @@ public class ResponseFilter extends ZuulFilter {
             mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
             if (responseDataStream == null) {
-                ctx.setResponseBody(mapper.writeValueAsString(new ResponseModel<Object>()));
+                ctx.setResponseBody(mapper.writeValueAsString(new ResponseModel()));
                 return null;
             }
             final String responseData = CharStreams.toString(new InputStreamReader(responseDataStream, "UTF-8"));

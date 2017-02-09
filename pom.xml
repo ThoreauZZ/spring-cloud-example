@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>cloud-user-api</module>
         <module>cloud-data-mysql</module>
         <module>cloud-config-server</module>
         <module>cloud-admin-ui</module>
@@ -20,6 +19,7 @@
         <module>cloud-api-gateway</module>
         <module>cloud-turbine-dashboard</module>
         <module>cloud-zipkin-ui</module>
+        <module>cloud-comx</module>
     </modules>
 
     <parent>
