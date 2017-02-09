@@ -23,6 +23,7 @@ abstract public class AbstractRequestBasedSourceBase extends AbstractSourceBase{
 
     public Object executeLoading(Context context, Config sourceOptions, HashMap reservedVariables) throws ConfigException, UnmatchedRequestMethodException, IOException, SourceException{
         String method                   = sourceOptions.str(Source.FIELD_METHOD, RequestMessage.METHOD_GET);
+        Integer timeout                 = sourceOptions.intvalue(Source.FIELD_TIMEOUT, RequestMessage.DEFAULT_TIMEOUT);
         RequestMessage currentRequest   = context.getRequest();
         ReservedParameterManager reservedParameterManager = ReservedParameterManager.fromRequest(currentRequest);
 
@@ -40,7 +41,7 @@ abstract public class AbstractRequestBasedSourceBase extends AbstractSourceBase{
         try {
             // Url 生成错误 处理
             Url url = new Url(targetUrl);
-            RequestMessage request = new RequestMessage(url, method, requestData, reservedParameterManager.getFilteredReservedHeaders(), 10);
+            RequestMessage request = new RequestMessage(url, method, requestData, reservedParameterManager.getFilteredReservedHeaders(context), timeout);
             return this.doRequest(request, context);
             // TODO handle exceptions
             // should not be Exception
