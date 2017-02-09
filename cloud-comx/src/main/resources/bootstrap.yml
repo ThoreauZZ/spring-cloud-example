@@ -2,7 +2,7 @@ spring:
   application:
     name: comx
 server:
-  port: 9029
+  port: 9019
 
 eureka:
   client:
