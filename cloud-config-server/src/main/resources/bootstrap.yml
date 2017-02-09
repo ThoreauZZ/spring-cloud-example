@@ -1,0 +1,49 @@
+spring:
+  application.name : config-server
+  profiles.active: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ThoreauZZ/spring-cloud-example.git
+#           uri: file:/github/spring-learn
+          searchPaths: config-repo
+server:
+  port : 9000
+
+---
+spring:
+  profiles: dev
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: '5672'
+    username: guest
+    virtualHost: /
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+
+
+---
+spring:
+  profiles: docker
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    password: guest
+    port: '5672'
+    username: guest
+    virtualHost: /
+
+server:
+  port : ${SERVICE_PORT}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${REGISTRY_URL}
+
