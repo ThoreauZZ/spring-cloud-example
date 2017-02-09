@@ -1,5 +1,6 @@
 *.iml
 *.setting
+*.idea
 *.project
 target
 .DS_Store
