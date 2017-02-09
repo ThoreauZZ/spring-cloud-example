@@ -3,10 +3,12 @@ package com.gomeplus.comx.source.sourcebase;
 import com.alibaba.fastjson.JSONObject;
 import com.gomeplus.comx.boot.server.ComxSpringCloudApplication;
 import com.gomeplus.comx.context.Context;
+import com.gomeplus.comx.source.SourceBizException;
 import com.gomeplus.comx.source.SourceException;
 import com.gomeplus.comx.utils.config.Config;
 import com.gomeplus.comx.utils.config.ConfigException;
 import com.gomeplus.comx.utils.rest.RequestMessage;
+import com.gomeplus.comx.utils.rest.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -40,34 +42,35 @@ public class SpringCloudSourceBase extends AbstractRequestBasedSourceBase{
 
 
 
-    public Object doRequest(RequestMessage requestMessage, Context context) {
-        String method = requestMessage.getMethod();
-        // Prepare header
+    //return restTemplate.getForEntity("http://config-server/user-service-dev.json", Object.class).getBody();
+    // 这个时候 request headers 应当已经被处理好保留字段，只需要封装入client
+    public Object doRequest(RequestMessage requestMessage, Context context) throws SourceException{
+        String method                           = requestMessage.getMethod();
+        HashMap<String, String> requestheaders  = requestMessage.getHeaderParameters();
+        Map<String, Object> data                = requestMessage.getData();
+
+
         HttpHeaders headers = new HttpHeaders();
+        headers.setAll(requestheaders);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity;
+        if (null == data) {
+            entity = new HttpEntity<String>(headers);
+        } else {
+            entity = new HttpEntity<String>(new JSONObject(data).toString(), headers);
+        }
 
         RestTemplate restTemplate = context.getRestTemplate();
+        //TODO timeout 设置
+        //restTemplate.setReadTimeout(requestMessage.getTimeout() * 1000);
+        URI aURI = requestMessage.getUrl().getaURI();
 
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-        Map data = requestMessage.getData();
-        //return restTemplate.getForEntity("http://config-server/user-service-dev.json", Object.class).getBody();
-
-        return restTemplate.exchange(requestMessage.getUrl().getaURI(), HttpMethod.GET, entity, Object.class).getBody();
-
-
-        /*
-// set headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
-
-// send request and parse result
-        ResponseEntity<String> loginResponse = restTemplate
-                .exchange(urlString, HttpMethod.POST, entity, String.class);
-        if (loginResponse.getStatusCode() == HttpStatus.OK) {
-            JSONObject userJson = new JSONObject(loginResponse.getBody());
-        } else if (loginResponse.getStatusCode() == HttpStatus.UNAUTHORIZED) {
-            // nono... bad credentials
+        ResponseEntity<Object> responseEntity = restTemplate.exchange(aURI, HttpMethod.resolve(method.toUpperCase()), entity, Object.class);
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            return new JSONObject((Map) responseEntity.getBody());
+        } else {
+            throw new SourceBizException("Source get source url:" + aURI.toString() + ", status code:" + responseEntity.getStatusCode());
         }
-        */
+        //return restTemplate.exchange(requestMessage.getUrl().getaURI(), HttpMethod.GET, entity, Object.class).getBody();
     }
 }
