@@ -1,5 +1,7 @@
 package com.gomeplus.comx.utils.rest;
 
+import com.gomeplus.comx.context.Context;
+
 import java.util.HashMap;
 
 /**
@@ -52,7 +54,7 @@ public class ReservedParameterManager {
         for (String queryName: RESERVED_PARAMETERS.keySet()) {
             String headerName = RESERVED_PARAMETERS.get(queryName);
             if (headers.containsKey(headerName)) {
-                reservedHeaderParams.put(headerName, headers.get(headerName));
+                reservedHeaderParams.put(queryName, headers.get(headerName));
             }
             if (queries.containsKey(queryName)) {
                 reservedQueryParams.put(queryName, queries.get(queryName));
@@ -79,8 +81,8 @@ public class ReservedParameterManager {
         return reservedQueryParams;
     }
 
-    // TODO 初始化之时直接将query和heade中的冲突参数merge，以query为主
-    public HashMap<String, String> getFilteredReservedHeaders() {
+    // TODO 初始化之时直接将query和header中的冲突参数merge，以query为主
+    public HashMap<String, String> getFilteredReservedHeaders(Context context) {
         HashMap<String, String> result = new HashMap<>();
         for (String queryName: reservedHeaderParams.keySet()) {
             String headerName = RESERVED_PARAMETERS.get(queryName);
@@ -89,6 +91,7 @@ public class ReservedParameterManager {
             }
             result.put(headerName, reservedHeaderParams.get(queryName));
         }
+        //context.getLogger().error("In Reserved Param manager: " + result.keySet());
         return result;
     }
 
@@ -99,7 +102,7 @@ public class ReservedParameterManager {
         String headerKey = "X-Gomeplus-User-Id";
         String queryKey  = "userId";
         if (reservedQueryParams.containsKey(queryKey))    return reservedQueryParams.get(queryKey);
-        if (reservedHeaderParams.containsKey(headerKey))  return reservedHeaderParams.get(headerKey);
+        if (reservedHeaderParams.containsKey(queryKey))  return reservedHeaderParams.get(queryKey);
         return null;
     }
 
@@ -107,7 +110,7 @@ public class ReservedParameterManager {
         String headerKey = "X-Gomeplus-Login-Token";
         String queryKey  = "loginToken";
         if (reservedQueryParams.containsKey(queryKey))    return reservedQueryParams.get(queryKey);
-        if (reservedHeaderParams.containsKey(headerKey))  return reservedHeaderParams.get(headerKey);
+        if (reservedHeaderParams.containsKey(queryKey))  return reservedHeaderParams.get(queryKey);
         return null;
     }
 
@@ -115,7 +118,7 @@ public class ReservedParameterManager {
         String headerKey = "X-Gomeplus-App";
         String queryKey  = "app";
         if (reservedQueryParams.containsKey(queryKey))    return reservedQueryParams.get(queryKey);
-        if (reservedHeaderParams.containsKey(headerKey))  return reservedHeaderParams.get(headerKey);
+        if (reservedHeaderParams.containsKey(queryKey))  return reservedHeaderParams.get(queryKey);
         return null;
     }
 }

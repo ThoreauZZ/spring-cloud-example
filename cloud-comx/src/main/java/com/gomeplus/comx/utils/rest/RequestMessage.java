@@ -26,6 +26,7 @@ public class RequestMessage implements ArrayAccessBase{
     private static final String HEADER_FIELD_X_FORWARDED_FOR    = "X-Forwarded-For";
     private static final String QUERY_FIELD_TRACE_ID            = "traceId";
     private static final String DEFAULT_TRACE_ID_PREFIX         = "COMX";
+    public static final Integer DEFAULT_TIMEOUT     = 10;
 
     @Deprecated
     protected HashMap<String, String>   commonParameterHolder;
@@ -219,7 +220,7 @@ public class RequestMessage implements ArrayAccessBase{
         this.method = method;
     }
 
-    public Map getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 

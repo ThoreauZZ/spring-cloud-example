@@ -23,7 +23,6 @@ import java.util.Objects;
  */
 public class Source {
     static final Integer DEFAULT_TIMEOUT            = 8000;
-    static final String FIELD_TIMEOUT               = "timeout";
     static final String FIELD_BASE                  = "base";
     static final String FIELD_FIRST_ENTRY_ONLY      = "firstEntryOnly";
     static final String FIELD_JSON_PATH             = "jsonPath";
@@ -32,6 +31,7 @@ public class Source {
 
     public static final String FIELD_URI            = "uri";
     public static final String FIELD_METHOD         = "method";
+    public static final String FIELD_TIMEOUT        = "timeout";
     public static final String RESERVED_RENDERED_URI= "reserved_rendered_uri";
     static final String RESERVED_TPL_VAR_REQUEST    = "request";
 
@@ -42,6 +42,7 @@ public class Source {
     static final String SOURCE_CACHE_TTL            = "ttl:";
     static final String SOURCE_CACHE_KEY            = "key";
     static final Integer SOURCE_CACHE_TTL_DEFAULT   = 300;
+
 
     /**
      * source 是一个对应的source 实例， 提供loadData 返回 Map Object;(或非Map)
