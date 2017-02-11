@@ -21,7 +21,7 @@ mvn clean package -Pdocker
 ```
 docker-compose up
 ```
-> Discovery and config 应该在所有服务之前启动，本例没作处理，如果`docker-compose up`后发现其他服没起来，请手动重启，
+> Discovery and config 应该在所有服务之前启动，本例通过docker-compose file 2.1版本添加healthcheck方式处理，如果`docker-compose up`后发现其他服没起来，请手动重启，
 > `Docker Compose`控制启动顺序见:[https://docs.docker.com/compose/startup-order/](https://docs.docker.com/compose/startup-order/)
 
 ### 测试验证服务:
