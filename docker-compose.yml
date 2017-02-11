@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   mysql:
     image: erdaoya/cloud-data-mysql
@@ -20,6 +20,11 @@ services:
     environment:
       SERVICE_HOST: discovery
       SERVICE_PORT: 9001
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
 
   config:
     image: erdaoya/cloud-config-server
@@ -32,9 +37,17 @@ services:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
       RABBITMQ_HOST: rabbitmq
+      HOST_IP: 192.168.99.100 # docker host ip
     depends_on:
-      - eureka
-      - rabbitmq
+      eureka:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
@@ -61,8 +74,10 @@ services:
       SERVICE_PORT: 9002
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
-      - eureka
-      - config
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
 
   trade:
     image: erdaoya/cloud-trade-service
