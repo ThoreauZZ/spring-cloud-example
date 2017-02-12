@@ -37,7 +37,7 @@ services:
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
       RABBITMQ_HOST: rabbitmq
-      HOST_IP: 192.168.99.100 # docker host ip
+      HOST_IP: ${HOST_IP} # docker host ip   HOST_IP=192.168.99.100 docker-compose up -d
     depends_on:
       eureka:
         condition: service_healthy
@@ -59,6 +59,10 @@ services:
     environment:
       SERVICE_PORT: 9012
       REGISTRY_URL: http://discovery:9001/eureka
+    depends_on:
+      eureka:
+        condition: service_healthy
+
 
   user:
     image: erdaoya/cloud-user-service
@@ -93,8 +97,10 @@ services:
       SERVICE_PORT: 9007
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
-      - eureka
-      - config
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
   ext:
     image: erdaoya/cloud-service-ext
     ports:
