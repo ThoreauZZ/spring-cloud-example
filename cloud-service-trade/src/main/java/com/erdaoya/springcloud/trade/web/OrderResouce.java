@@ -1,7 +1,7 @@
 package com.erdaoya.springcloud.trade.web;
 
+import com.erdaoya.springcloud.common.exception.code4xx.C404Exception;
 import com.erdaoya.springcloud.trade.entity.Order;
-import com.gomeplus.oversea.bs.common.exception.code4xx.C404Exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

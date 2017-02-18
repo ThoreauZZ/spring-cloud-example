@@ -1,6 +1,7 @@
 # spring-cloud-example
 ---
 English | [中文](doc/README-CN.md)
+
 ## Quick Start
 ### Requirements
 The requirements for running this example on your machine are found below.
@@ -21,14 +22,14 @@ wait for a period of time。
 
 ### Start 
 ```
-HOST_IP=192.168.99.100 docker-compose up -d
+docker-compose up -d
 ```
 > Discovery and config shuld be started before all services.
 >   Controlling startup order in `Docker Compose`:[https://docs.docker.com/compose/startup-order/](https://docs.docker.com/compose/startup-order/)
-> 
-> We usr docker-compose file version 2.1 healthcheck
 
-* HOST_IP : docker host ip 
+
+> Here user docker-compose file version 2.1 `healthcheck`
+
 
 
 ### Test And Verify:

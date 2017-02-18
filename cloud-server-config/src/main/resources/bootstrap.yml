@@ -1,5 +1,5 @@
 spring:
-  application.name : config-server
+  application.name : cloud-server-config
   profiles.active: dev
   cloud:
     config:
@@ -14,12 +14,6 @@ server:
 ---
 spring:
   profiles: dev
-  rabbitmq:
-    host: localhost
-    password: guest
-    port: '5672'
-    username: guest
-    virtualHost: /
 
 eureka:
   client:
@@ -30,12 +24,6 @@ eureka:
 ---
 spring:
   profiles: docker
-  rabbitmq:
-    host: ${RABBITMQ_HOST}
-    password: guest
-    port: '5672'
-    username: guest
-    virtualHost: /
 
 server:
   port : ${SERVICE_PORT}
@@ -43,7 +31,6 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
-    ip-address: ${HOST_IP}
   client:
     service-url:
       defaultZone: ${REGISTRY_URL}

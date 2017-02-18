@@ -1,6 +1,6 @@
 spring:
   application:
-    name : turbine-dashboard
+    name : cloud-turbine-dashboard
   profiles.active: dev
 server:
   port : 9010
@@ -16,7 +16,7 @@ eureka:
       defaultZone: http://localhost:9001/eureka/
 
 turbine:
-  appConfig: service-ext, api-gateway
+  appConfig: cloud-service-client, cloud-api-gateway
   aggregator:
     clusterConfig: default
   clusterNameExpression: new String("default")
@@ -36,7 +36,7 @@ eureka:
     service-url:
       defaultZone: ${REGISTRY_URL}
 turbine:
-  appConfig: service-ext, api-gateway
+  appConfig: cloud-service-client, cloud-api-gateway
   aggregator:
     clusterConfig: default
   clusterNameExpression: new String("default")

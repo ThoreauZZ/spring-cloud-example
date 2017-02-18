@@ -2,6 +2,7 @@ package com.erdaoya.springcloud.common.exception.code4xx;
 
 
 import com.erdaoya.springcloud.common.exception.RESTfull4xxBaseException;
+import com.erdaoya.springcloud.common.exception.util.ErrorUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -11,5 +12,8 @@ public class C422Exception extends RESTfull4xxBaseException implements Serializa
 	private static final long serialVersionUID = -2312393803704717855L;
 	public C422Exception(String message) {
 		super(message);
+	}
+	public C422Exception(String message,Error error){
+		super(ErrorUtil.appendError(message,error));
 	}
 }

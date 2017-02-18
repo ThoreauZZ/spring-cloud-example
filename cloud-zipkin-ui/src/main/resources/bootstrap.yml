@@ -1,6 +1,6 @@
 spring:
   application:
-    name : zipkin-ui
+    name : cloud-zipkin-ui
   profiles:
     active: dev
   cloud:
@@ -8,7 +8,7 @@ spring:
       failFast: true
       discovery:
         enabled: true
-        serviceId: config-server
+        serviceId: cloud-server-config
 
 ---
 

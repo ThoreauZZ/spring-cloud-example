@@ -3,6 +3,7 @@ package com.erdaoya.springcloud.common.exception.code4xx;
 
 
 import com.erdaoya.springcloud.common.exception.RESTfull4xxBaseException;
+import com.erdaoya.springcloud.common.exception.util.ErrorUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -14,5 +15,8 @@ public class C405Exception extends RESTfull4xxBaseException implements Serializa
 
 	public C405Exception(String message) {
 		super(message);
+	}
+	public C405Exception(String message,Error error){
+		super(ErrorUtil.appendError(message,error));
 	}
 }

@@ -2,6 +2,7 @@ package com.erdaoya.springcloud.common.exception.code3xx;
 
 
 import com.erdaoya.springcloud.common.exception.RESTfull3xxBaseException;
+import com.erdaoya.springcloud.common.exception.util.ErrorUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -18,5 +19,8 @@ public class C301Exception extends RESTfull3xxBaseException implements Serializa
 
     public C301Exception(String message) {
         super(message);
+    }
+    public C301Exception(String message,Error error){
+        super(ErrorUtil.appendError(message,error));
     }
 }

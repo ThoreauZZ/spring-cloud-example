@@ -15,6 +15,17 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.erdaoya</groupId>
+            <artifactId>cloud-common-mvc-custom</artifactId>
+            <version>${cloud-common-mvc-custom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.erdaoya</groupId>
+            <artifactId>cloud-common-exception</artifactId>
+            <version>${cloud-common-exception.version}</version>
+        </dependency>
+
         <!--discovery-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

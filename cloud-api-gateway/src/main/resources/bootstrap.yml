@@ -1,12 +1,12 @@
 spring:
   application:
-    name : api-gateway
+    name : cloud-api-gateway
   cloud:
       config:
         failFast: true
         discovery:
           enabled: true
-          serviceId: config-server
+          serviceId: cloud-server-config
 server:
   port : 9006
 
@@ -15,10 +15,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
-security:
-  user:
-    password: password
-  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
 
 logging:
   level.org.springframework.security: DEBUG
@@ -27,17 +23,22 @@ zuul:
   routes:
     users:
       path: /user/**
-      serviceId: user-service
+      serviceId: cloud-service-user
+      stripPrefix: false
+
+    client:
+      path: /client/**
+      serviceId: cloud-service-client
       stripPrefix: false
 
     ext:
       path: /ext/**
-      serviceId: service-ext
+      serviceId: cloud-service-comx
       stripPrefix: false
 
     trade:
       path: /trade/**
-      serviceId: trade-service
+      serviceId: cloud-service-trade
       stripPrefix: false
 
 ---

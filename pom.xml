@@ -10,17 +10,21 @@
 
     <modules>
         <module>cloud-common-exception</module>
+        <module>cloud-common-mvc-custom</module>
         <module>cloud-data-mysql</module>
-        <module>cloud-server-config</module>
-        <module>cloud-admin-ui</module>
+
         <module>cloud-server-discovery</module>
-        <module>cloud-service-ext</module>
-        <module>cloud-api-gateway</module>
+        <module>cloud-server-config</module>
+
+        <module>cloud-admin-ui</module>
         <module>cloud-turbine-dashboard</module>
         <module>cloud-zipkin-ui</module>
-        <module>cloud-comx</module>
+
+        <module>cloud-service-client</module>
+        <module>cloud-service-comx</module>
         <module>cloud-service-trade</module>
         <module>cloud-service-user</module>
+        <module>cloud-api-gateway</module>
     </modules>
 
     <parent>
@@ -45,6 +49,8 @@
         <jolokia.version>1.3.5</jolokia.version>
 
         <cloud-common-exception.version>1.0-SNAPSHOT</cloud-common-exception.version>
+        <cloud-common-mvc-custom.version>1.0-SNAPSHOT</cloud-common-mvc-custom.version>
+
     </properties>
 
     <dependencies>

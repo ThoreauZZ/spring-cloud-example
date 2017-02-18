@@ -1,25 +1,14 @@
 spring:
   application:
-    name : service-ext
-  profiles:
-      active: dev
-  cloud:
-    config:
-      failFast: true
-      discovery:
-        enabled: true
-        serviceId: config-server
+    name: cloud-service-comx
 server:
-  port : 9005
-
----
-spring:
-  profiles: dev
+  port: 9019
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
+
 
 ---
 
@@ -27,7 +16,7 @@ spring:
   profiles: docker
 
 server:
-  port : ${SERVICE_PORT}
+  port: ${SERVICE_PORT}
 
 eureka:
   instance:
@@ -35,5 +24,3 @@ eureka:
   client:
     service-url:
       defaultZone: ${REGISTRY_URL}
-
-

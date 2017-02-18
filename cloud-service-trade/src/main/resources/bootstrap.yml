@@ -1,13 +1,13 @@
 spring:
   application:
-    name : trade-service
+    name : cloud-service-trade
   profiles.active: dev
   cloud:
     config:
       failFast: true
       discovery:
         enabled: true
-        serviceId: config-server
+        serviceId: cloud-server-config
 
 server:
   port : 9007
