@@ -21,11 +21,6 @@ services:
     environment:
       SERVICE_HOST: discovery
       SERVICE_PORT: 9001
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
 
   config:
     image: erdaoya/cloud-server-config
