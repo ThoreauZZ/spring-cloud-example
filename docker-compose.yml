@@ -50,6 +50,7 @@ services:
 
   zipkin:
     image: erdaoya/cloud-zipkin-ui
+    restart: always
     ports:
       - "9012:9012"
     links:

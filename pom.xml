@@ -39,7 +39,8 @@
 
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <resources.plugin.version>3.0.2</resources.plugin.version>
-        <docker.image.prefix>erdaoya</docker.image.prefix>
+        <docker.repo>registry2.io:5000</docker.repo>
+        <docker.image.prefix>${docker.repo}/erdaoya</docker.image.prefix>
 
         <spring-boot-admin.version>1.4.5</spring-boot-admin.version>
         <druid.version>1.0.15</druid.version>
@@ -79,6 +80,20 @@
         </dependency>
     </dependencies>
 
+    <!--maven deploy repositories config-->
+    <!--
+    <distributionManagement>
+        <repository>
+            <id>gomeplus-releases</id>
+            <name>Team Nexus Repository releases</name>
+            <url>http://192.168.99.100:8080/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>gomeplus-snapshots</id>
+            <name>Team Nexus Repository snapshots</name>
+            <url>http://192.168.99.100:8080/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -159,14 +174,36 @@
                                 <goal>build</goal>
                             </goals>
                         </execution>
+                        <execution>
+                            <id>tag-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <image>${docker.image.prefix}/${project.artifactId}</image>
+                                <newName>${docker.image.prefix}/${project.artifactId}</newName>
+                                <forceTags>true</forceTags>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>push-image</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                            </configuration>
+                        </execution>
                     </executions>
                     <configuration>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                       <!-- <imageTags>
+                        <imageTags>
                             <imageTag>${project.version}</imageTag>
                             <imageTag>latest</imageTag>
                         </imageTags>
-                        <forceTags>true</forceTags>-->
+                        <forceTags>true</forceTags>
                         <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
                         <resources>
                             <resource>

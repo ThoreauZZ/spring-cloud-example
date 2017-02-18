@@ -1,14 +1,20 @@
 # spring-cloud-example
 ---
-English | [中文](doc/README-CN.md)
+English | [中文WIKI](doc/README-CN.md)
+
+## 
+spring cloud : 
+* spring cloud config 
+* eureka zull ribbon feign bus sleuth
+
 
 ## Quick Start
 ### Requirements
 The requirements for running this example on your machine are found below.
 * Maven 3
 * Java 8
-* Docker 1.10.3
-* Docker Compose 1.9
+* Docker 1.13.1
+* Docker Compose 1.10.0
 
 ### Clone and Build
 
@@ -32,7 +38,7 @@ docker-compose up -d
 
 
 
-### Test And Verify:
+## Test And Verify:
  
  Click [here](doc/1.Test And Verify.md) for details
 

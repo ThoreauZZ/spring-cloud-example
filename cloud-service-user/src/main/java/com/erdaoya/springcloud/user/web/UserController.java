@@ -1,6 +1,7 @@
 package com.erdaoya.springcloud.user.web;
 
 import com.erdaoya.springcloud.common.exception.code4xx.C400Exception;
+import com.erdaoya.springcloud.common.exception.code4xx.C404Exception;
 import com.erdaoya.springcloud.user.dao.UserDao;
 import com.erdaoya.springcloud.user.entity.User;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,7 +33,7 @@ public class UserController {
     public User doGet(@RequestParam Long id) {
         User user = userDao.selectUserById(id);
         if(user == null){
-            throw new C400Exception("user not found");
+            throw new C404Exception("user not found");
         }
         return userDao.selectUserById(id);
     }
