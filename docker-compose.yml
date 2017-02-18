@@ -13,8 +13,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
   eureka:
-    image: erdaoya/cloud-eureka-server
+    image: erdaoya/cloud-server-discovery
     ports:
       - "9001:9001"
     environment:
@@ -27,7 +28,7 @@ services:
       retries: 3
 
   config:
-    image: erdaoya/cloud-config-server
+    image: erdaoya/cloud-server-config
     ports:
       - "9000:9000"
     links:
@@ -65,7 +66,7 @@ services:
 
 
   user:
-    image: erdaoya/cloud-user-service
+    image: erdaoya/cloud-service-user
     ports:
       - "9002:9002"
     links:
@@ -84,7 +85,7 @@ services:
         condition: service_healthy
 
   trade:
-    image: erdaoya/cloud-trade-service
+    image: erdaoya/cloud-service-trade
     ports:
       - "9007:9007"
     links:
@@ -153,6 +154,7 @@ services:
     depends_on:
       - eureka
       - config
+
   admin:
     image: erdaoya/cloud-admin-ui
     ports:
@@ -176,8 +178,8 @@ services:
     environment:
       SERVICE_PORT: 9019
       REGISTRY_URL: http://discovery:9001/eureka
-    volumes:
-        - "/www:/www"
+#    volumes:
+#        - "/www:/www"
     depends_on:
       - eureka
       - config

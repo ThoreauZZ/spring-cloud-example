@@ -9,18 +9,18 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bs-common-exception</module>
+        <module>cloud-common-exception</module>
         <module>cloud-data-mysql</module>
-        <module>cloud-config-server</module>
+        <module>cloud-server-config</module>
         <module>cloud-admin-ui</module>
-        <module>cloud-eureka-server</module>
-        <module>cloud-user-service</module>
-        <module>cloud-trade-service</module>
+        <module>cloud-server-discovery</module>
         <module>cloud-service-ext</module>
         <module>cloud-api-gateway</module>
         <module>cloud-turbine-dashboard</module>
         <module>cloud-zipkin-ui</module>
         <module>cloud-comx</module>
+        <module>cloud-service-trade</module>
+        <module>cloud-service-user</module>
     </modules>
 
     <parent>
@@ -44,7 +44,7 @@
         <swagger2.version>2.4.0</swagger2.version>
         <jolokia.version>1.3.5</jolokia.version>
 
-        <bs-common-exception.version>1.0-SNAPSHOT</bs-common-exception.version>
+        <cloud-common-exception.version>1.0-SNAPSHOT</cloud-common-exception.version>
     </properties>
 
     <dependencies>
@@ -78,7 +78,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR4</version>
+                <version>Camden.SR5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
