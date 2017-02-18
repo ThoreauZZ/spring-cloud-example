@@ -14,7 +14,7 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  eureka:
+  discovery:
     image: erdaoya/cloud-server-discovery
     ports:
       - "9001:9001"
