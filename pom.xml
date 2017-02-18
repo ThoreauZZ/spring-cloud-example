@@ -40,7 +40,8 @@
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <resources.plugin.version>3.0.2</resources.plugin.version>
         <docker.repo>registry2.io:5000</docker.repo>
-        <docker.image.prefix>${docker.repo}/erdaoya</docker.image.prefix>
+        <!--<docker.image.prefix>${docker.repo}/erdaoya</docker.image.prefix>-->
+        <docker.image.prefix>erdaoya</docker.image.prefix>
 
         <spring-boot-admin.version>1.4.5</spring-boot-admin.version>
         <druid.version>1.0.15</druid.version>

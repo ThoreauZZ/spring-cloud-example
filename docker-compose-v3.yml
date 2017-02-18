@@ -1,0 +1,124 @@
+version: '3'
+services:
+  mysql:
+    image: erdaoya/cloud-data-mysql
+    ports:
+      - "3306:3306"
+
+  rabbitmq:
+    image: rabbitmq:management
+    expose:
+      - 5672
+      - 15672
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  eureka:
+    image: erdaoya/cloud-server-discovery
+    ports:
+      - "9001:9001"
+    environment:
+      SERVICE_HOST: discovery
+      SERVICE_PORT: 9001
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+  config:
+    image: erdaoya/cloud-server-config
+    ports:
+      - "9000:9000"
+    environment:
+      SERVICE_PORT: 9000
+      REGISTRY_URL: http://discovery:9001/eureka
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+    restart_policy:
+      condition: on-failure
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+
+
+  zipkin:
+    image: erdaoya/cloud-zipkin-ui
+    ports:
+      - "9012:9012"
+    environment:
+      SERVICE_PORT: 9012
+      REGISTRY_URL: http://discovery:9001/eureka
+
+  user:
+    image: erdaoya/cloud-service-user
+    ports:
+      - "9002:9002"
+    environment:
+      SERVICE_PORT: 9002
+      REGISTRY_URL: http://discovery:9001/eureka
+    restart_policy:
+      condition: on-failure
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+
+  trade:
+    image: erdaoya/cloud-service-trade
+    ports:
+      - "9007:9007"
+    environment:
+      SERVICE_PORT: 9007
+      REGISTRY_URL: http://discovery:9001/eureka
+
+  ext:
+    image: erdaoya/cloud-service-client
+    ports:
+      - "9005:9005"
+    environment:
+      SERVICE_PORT: 9005
+      REGISTRY_URL: http://discovery:9001/eureka
+
+  gateway:
+    image: erdaoya/cloud-api-gateway
+    ports:
+      - "9006:9006"
+    environment:
+      SERVICE_PORT: 9006
+      REGISTRY_URL: http://discovery:9001/eureka
+
+  turbine:
+    image: erdaoya/cloud-turbine-dashboard
+    ports:
+      - "9010:9010"
+    environment:
+      SERVICE_PORT: 9010
+      REGISTRY_URL: http://discovery:9001/eureka
+
+  admin:
+    image: erdaoya/cloud-admin-ui
+    ports:
+      - "9003:9003"
+    links:
+      - turbine:turbine
+      - eureka:discovery
+    environment:
+      SERVICE_PORT: 9003
+      REGISTRY_URL: http://discovery:9001/eureka
+      TURBINE_URL: http://discovery:9010/turbine.stream
+
+
+  comx:
+    image: erdaoya/cloud-service-comx
+    ports:
+      - "9019:9019"
+    environment:
+      SERVICE_PORT: 9019
+      REGISTRY_URL: http://discovery:9001/eureka
+#    volumes:
+#        - "/www:/www"
+
