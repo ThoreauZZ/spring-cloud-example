@@ -1,5 +1,6 @@
 package com.erdaoya.springcloud.user.web;
 
+import com.erdaoya.springcloud.common.exception.code4xx.C400Exception;
 import com.erdaoya.springcloud.user.dao.UserDao;
 import com.erdaoya.springcloud.user.entity.User;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,14 +26,18 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @ApiOperation(value = "get user by id", notes = "")
+    @ApiOperation(value = "get userinfo by id", notes = "")
     @ApiImplicitParam(name = "id", value = "user id ", required = true, paramType = "query")
     @RequestMapping(method = RequestMethod.GET)
     public User doGet(@RequestParam Long id) {
+        User user = userDao.selectUserById(id);
+        if(user == null){
+            throw new C400Exception("user not found");
+        }
         return userDao.selectUserById(id);
     }
 
-    @ApiOperation(value = "create user", notes = "")
+    @ApiOperation(value = "create userinfo", notes = "")
     @ApiImplicitParam(name = "user", value = "user vo ", required = true, dataType = "User")
     @RequestMapping(method = RequestMethod.POST)
     public void doPost(User User) {

@@ -22,7 +22,7 @@ services:
       SERVICE_HOST: discovery
       SERVICE_PORT: 9001
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://discovery:9001/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -41,7 +41,7 @@ services:
       eureka:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://discovery:9000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
       interval: 1m30s
       timeout: 10s
       retries: 3

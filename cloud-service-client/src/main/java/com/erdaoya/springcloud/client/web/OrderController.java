@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/ext/trade")
+@RequestMapping("/clinet/trade")
 public class OrderController {
 
     @Autowired

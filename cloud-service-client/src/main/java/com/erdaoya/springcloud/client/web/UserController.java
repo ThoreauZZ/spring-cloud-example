@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/ext")
+@RequestMapping("/clinet")
 public class UserController {
 
     @Autowired
@@ -26,8 +26,9 @@ public class UserController {
     public Object getUserByFeign(String id) {
         return feignClient.getUser(id);
     }
+
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public Object getUserByRibbon(String id) {
+    public Object getUserByRibbon(Long id) {
         return ribbonClient.getUser(id);
     }
 
