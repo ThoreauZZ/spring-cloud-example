@@ -1,12 +1,13 @@
 package com.gomeplus.comx.schema
 
 import com.alibaba.fastjson.JSONObject
-import com.gomeplus.comx.context.Context
-import com.gomeplus.comx.utils.config.ConfigException
-import com.gomeplus.comx.utils.config.Loader
-import com.gomeplus.comx.utils.log.ComxLogger
-import com.gomeplus.comx.utils.rest.RequestMessage
-import com.gomeplus.comx.utils.rest.Url
+import com.erdaoya.springcloud.comx.context.Context
+import com.erdaoya.springcloud.comx.schema.TinyTemplate
+import com.erdaoya.springcloud.comx.utils.config.ConfigException
+import com.erdaoya.springcloud.comx.utils.config.Loader
+import com.erdaoya.springcloud.comx.utils.log.ComxLogger
+import com.erdaoya.springcloud.comx.utils.rest.RequestMessage
+import com.erdaoya.springcloud.comx.utils.rest.Url
 
 /**
  * Created by xue on 12/20/16.

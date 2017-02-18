@@ -70,7 +70,7 @@ services:
     links:
       - config:config
       - eureka:discovery
-      - mysql:db
+      - mysql:mysql
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
@@ -89,7 +89,7 @@ services:
     links:
       - config:config
       - eureka:discovery
-      - mysql:db
+      - mysql:mysql
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
@@ -124,7 +124,7 @@ services:
     links:
       - config:config
       - eureka:discovery
-      - mysql:db
+      - mysql:mysql
       - user:user
       - trade:trade
       - ext:ext

@@ -11,7 +11,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <start-class>com.gomeplus.comx.boot.server.ComxSpringCloudApplication</start-class>
+        <start-class>com.erdaoya.springcloud.comx.boot.server.ComxSpringCloudApplication</start-class>
         <nettygroup>io.netty</nettygroup>
         <nettyversion>4.1.6.Final</nettyversion>
     </properties>

@@ -1,5 +1,7 @@
 package com.gomeplus.comx.utils.config
 
+import com.erdaoya.springcloud.comx.utils.config.ConfigException
+import com.erdaoya.springcloud.comx.utils.config.Loader
 import org.junit.Test
 
 /**

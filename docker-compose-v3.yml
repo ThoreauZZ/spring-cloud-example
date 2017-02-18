@@ -34,11 +34,11 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
-      window: 120s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 
   zipkin:
@@ -56,11 +56,16 @@ services:
     environment:
       SERVICE_PORT: 9002
       REGISTRY_URL: http://discovery:9001/eureka
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
-      window: 120s
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
   trade:
     image: erdaoya/cloud-service-trade
@@ -98,9 +103,6 @@ services:
     image: erdaoya/cloud-admin-ui
     ports:
       - "9003:9003"
-    links:
-      - turbine:turbine
-      - eureka:discovery
     environment:
       SERVICE_PORT: 9003
       REGISTRY_URL: http://discovery:9001/eureka
@@ -116,4 +118,6 @@ services:
       REGISTRY_URL: http://discovery:9001/eureka
 #    volumes:
 #        - "/www:/www"
+
+#
 
