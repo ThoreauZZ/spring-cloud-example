@@ -2,10 +2,14 @@
 ---
 English | [中文WIKI](doc/README-CN.md)
 
-## 
-spring cloud : 
+## technologies
 * spring cloud config 
-* eureka zull ribbon feign bus sleuth
+* Spring Cloud Netflix: eureka zull ribbon feign
+* Spring Cloud Bus
+* Spring Cloud Sleuth + zipkin
+* maven + docker 
+* swagger
+* rabbitmq mybatis
 
 
 ## Quick Start
