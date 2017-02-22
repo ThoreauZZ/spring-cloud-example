@@ -8,7 +8,7 @@ spring:
       failFast: true
       discovery:
         enabled: true
-        serviceId: cloud-server-config
+        serviceId: bs-server-config
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
@@ -23,7 +23,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9001/eureka/
+      defaultZone: http://10.125.196.111:9001/eureka/
 ---
 spring:
   profiles: docker

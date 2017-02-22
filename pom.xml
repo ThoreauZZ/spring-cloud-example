@@ -11,7 +11,6 @@
     <modules>
         <module>cloud-common-exception</module>
         <module>cloud-common-mvc-custom</module>
-        <module>cloud-data-mysql</module>
 
         <module>cloud-server-discovery</module>
         <module>cloud-server-config</module>

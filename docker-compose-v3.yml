@@ -1,9 +1,13 @@
 version: '3'
 services:
   mysql:
-    image: erdaoya/cloud-data-mysql
+    image: mysql:5.6.35
     ports:
       - "3306:3306"
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
 
   rabbitmq:
     image: rabbitmq:management
