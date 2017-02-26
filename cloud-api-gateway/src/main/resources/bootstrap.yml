@@ -41,6 +41,18 @@ zuul:
       serviceId: cloud-service-trade
       stripPrefix: false
 
+hystrix:
+  command:
+    users:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 10000
+  threadpool:
+    default:
+      coreSize: 50
+
 ---
 
 spring:

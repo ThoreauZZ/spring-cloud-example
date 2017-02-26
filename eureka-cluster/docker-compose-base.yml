@@ -1,0 +1,9 @@
+version: '2'
+services:
+  base:
+    extra_hosts:
+      - "eureka-primary: 192.168.99.100"
+      - "eureka-secondary: 192.168.99.100"
+      - "eureka-tertiary: 192.168.99.100"
+
+# extends not supported in version 3

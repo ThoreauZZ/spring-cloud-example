@@ -39,3 +39,47 @@ eureka:
   server:
     waitTimeInMsWhenSyncEmpty: 0
     enable-self-preservation: false
+
+---
+
+spring:
+  profiles: primary
+server:
+  port: ${SERVICE_PORT}
+eureka:
+  environment: dev
+  datacenter: AWS
+  instance:
+    hostname: eureka-primary
+    port: ${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-secondary:9002/eureka/,http://eureka-tertiary:9003/eureka/
+
+---
+spring:
+  profiles: secondary
+server:
+  port: ${SERVICE_PORT}
+eureka:
+  instance:
+    hostname: eureka-secondary
+    port: ${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-primary:9001/eureka/,http://eureka-tertiary:9003/eureka/
+
+
+---
+
+spring:
+  profiles: tertiary
+server:
+  port: ${SERVICE_PORT}
+eureka:
+  instance:
+    hostname: eureka-tertiary
+    port: ${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-secondary:9002/eureka/,http://eureka-primary:9001/eureka/

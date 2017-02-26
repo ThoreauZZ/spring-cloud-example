@@ -1,0 +1,37 @@
+version: '3'
+services:
+  discovery1:
+    image: erdaoya/cloud-server-discovery
+    ports:
+      - "9001:9001"
+    environment:
+      SERVICE_PORT: 9001
+    command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=primary", "-jar", "/cloud-app.jar"]
+    extra_hosts:
+        - "eureka-primary: 192.168.99.100"
+        - "eureka-secondary: 192.168.99.100"
+        - "eureka-tertiary: 192.168.99.100"
+
+  discovery2:
+    image: erdaoya/cloud-server-discovery
+    ports:
+      - "9002:9002"
+    environment:
+      SERVICE_PORT: 9002
+    command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=secondary", "-jar", "/cloud-app.jar"]
+    extra_hosts:
+        - "eureka-primary: 192.168.99.100"
+        - "eureka-secondary: 192.168.99.100"
+        - "eureka-tertiary: 192.168.99.100"
+
+  discovery3:
+    image: erdaoya/cloud-server-discovery
+    ports:
+      - "9003:9003"
+    environment:
+      SERVICE_PORT: 9003
+    command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=tertiary", "-jar", "/cloud-app.jar"]
+    extra_hosts:
+        - "eureka-primary: 192.168.99.100"
+        - "eureka-secondary: 192.168.99.100"
+        - "eureka-tertiary: 192.168.99.100"
