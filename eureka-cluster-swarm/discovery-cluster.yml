@@ -8,9 +8,16 @@ services:
       SERVICE_PORT: 9001
     command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=primary", "-jar", "/cloud-app.jar"]
     extra_hosts:
-        - "eureka-primary: 192.168.99.100"
-        - "eureka-secondary: 192.168.99.100"
-        - "eureka-tertiary: 192.168.99.100"
+        - "eureka-primary: ${NODE1_IP}"
+        - "eureka-secondary: ${NODE2_IP}"
+        - "eureka-tertiary: ${NODE3_IP}"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.ID == ${NODE1_ID}
 
   discovery2:
     image: erdaoya/cloud-server-discovery
@@ -20,9 +27,16 @@ services:
       SERVICE_PORT: 9002
     command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=secondary", "-jar", "/cloud-app.jar"]
     extra_hosts:
-        - "eureka-primary: 192.168.99.100"
-        - "eureka-secondary: 192.168.99.100"
-        - "eureka-tertiary: 192.168.99.100"
+        - "eureka-primary: ${NODE1_IP}"
+        - "eureka-secondary: ${NODE2_IP}"
+        - "eureka-tertiary: ${NODE3_IP}"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.ID == ${NODE1_ID}
 
   discovery3:
     image: erdaoya/cloud-server-discovery
@@ -32,6 +46,13 @@ services:
       SERVICE_PORT: 9003
     command: ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=tertiary", "-jar", "/cloud-app.jar"]
     extra_hosts:
-        - "eureka-primary: 192.168.99.100"
-        - "eureka-secondary: 192.168.99.100"
-        - "eureka-tertiary: 192.168.99.100"
+        - "eureka-primary: ${NODE1_IP}"
+        - "eureka-secondary: ${NODE2_IP}"
+        - "eureka-tertiary: ${NODE3_IP}"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.ID == ${NODE1_ID}

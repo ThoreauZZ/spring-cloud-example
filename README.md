@@ -49,3 +49,6 @@ docker-compose up -d
 
 ## Architecture
 ![](doc/images/MicroService.png)
+
+## High availability
+[eureka-cluster](doc/eureka-cluster.md)

@@ -7,6 +7,13 @@
 * Docker 1.13.1
 * Docker Compose 1.10.0
 
+### 工程说明
+工程名就已经说明了用途
+* cloud-api-gateway：Zuul实现网关，自定义了返回协议
+* cloud-common-exception：自定义了绑定http状态码的异常
+* cloud-common-mvn-custom：自定义springMvc处理，比如对Jackson注解无法处理泛型null值
+* cloud-service-comx：通过json配置文件，对接口做自动组装
+
 ### 克隆并构建
 
 ```bash
@@ -36,3 +43,8 @@ docker-compose up -d
 
 ## 架构图
 ![](images/MicroService.png)
+
+
+### 高可用
+### 注册中心集群
+[单击查看](eureka-cluster.md)
