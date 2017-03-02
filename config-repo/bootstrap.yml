@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+        - eth(1|2).*
+        - en0
