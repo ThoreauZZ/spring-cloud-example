@@ -7,6 +7,11 @@ spring:
         discovery:
           enabled: true
           serviceId: cloud-server-config
+      inetutils:
+        ignoredInterfaces:
+          - docker0
+          - veth.*
+          - eth(1|2).*
 server:
   port : 9006
 
