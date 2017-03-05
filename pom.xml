@@ -11,6 +11,7 @@
     <modules>
         <module>cloud-common-exception</module>
         <module>cloud-common-mvc-custom</module>
+        <module>cloud-common-actuator-maven</module>
 
         <module>cloud-server-discovery</module>
         <module>cloud-server-config</module>
@@ -84,12 +85,12 @@
     <!--
     <distributionManagement>
         <repository>
-            <id>gomeplus-releases</id>
+            <id>Nexus-releases</id>
             <name>Team Nexus Repository releases</name>
             <url>http://192.168.99.100:8080/nexus/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>gomeplus-snapshots</id>
+            <id>Nexus-snapshots</id>
             <name>Team Nexus Repository snapshots</name>
             <url>http://192.168.99.100:8080/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
@@ -143,6 +144,23 @@
                     <dateFormat>yyyy-MM-dd '@' HH:mm:ss z</dateFormat>
                     <failOnNoGitDirectory>false</failOnNoGitDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>resolve</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>resolve</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.outputDirectory}/maven-resolve.properties</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <pluginManagement>
