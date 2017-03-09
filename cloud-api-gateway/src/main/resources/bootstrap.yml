@@ -12,6 +12,11 @@ spring:
           - docker0
           - veth.*
           - eth(1|2).*
+      stream:
+        bindings:
+          springCloudBusOutput:
+            destination: springCloudBusInput
+            contentType: application/json
 server:
   port : 9006
 
