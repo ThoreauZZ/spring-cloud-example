@@ -3,6 +3,11 @@ spring:
     name: service-registry
   profiles.active: dev
 
+eureka:
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 4000 # 60*1000
+
 server:
   port: 9001
 
@@ -10,6 +15,7 @@ server:
 spring:
   profiles: dev
 eureka:
+  environment: dev
   instance:
     hostname: localhost
     port: ${server.port}
@@ -28,6 +34,7 @@ spring:
 server:
   port: ${SERVICE_PORT}
 eureka:
+  environment: docker
   instance:
     hostname: ${SERVICE_HOST}
     port: ${server.port}
