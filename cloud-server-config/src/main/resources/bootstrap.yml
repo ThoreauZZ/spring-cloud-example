@@ -9,6 +9,11 @@ spring:
 #           uri: file:/github/spring-learn
           searchPaths: config-repo
         bootstrap: true
+    stream:
+      bindings:
+        springCloudBusOutput:
+          destination: springCloudBusInput
+          contentType: application/json
 server:
   port : 9000
 
