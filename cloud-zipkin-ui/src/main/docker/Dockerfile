@@ -1,4 +1,6 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+# FROM frolvlad/alpine-oraclejdk8:slim
+FROM java:8
+
 MAINTAINER erdaoya
 
 ADD @project.build.finalName@.jar @project.build.finalName@.jar

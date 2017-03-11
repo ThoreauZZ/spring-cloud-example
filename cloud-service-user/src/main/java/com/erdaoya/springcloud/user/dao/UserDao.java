@@ -3,7 +3,6 @@ package com.erdaoya.springcloud.user.dao;
 import com.erdaoya.springcloud.user.entity.User;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**

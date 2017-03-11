@@ -1,4 +1,5 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+# FROM frolvlad/alpine-oraclejdk8:slim
+FROM java:8
 
 MAINTAINER erdaoya
 
