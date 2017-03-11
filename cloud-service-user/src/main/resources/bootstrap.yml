@@ -8,7 +8,7 @@ spring:
       failFast: true
       discovery:
         enabled: true
-        serviceId: bs-server-config
+        serviceId: cloud-server-config
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
