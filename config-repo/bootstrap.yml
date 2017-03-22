@@ -1,3 +1,4 @@
+# [X] not work here,must in bootstrap.yml
 spring:
   cloud:
     inetutils:
@@ -6,3 +7,14 @@ spring:
         - veth.*
         - eth(1|2).*
         - en0
+
+# bootstrap ?
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+
+#https://github.com/spring-cloud/spring-cloud-netflix/issues/1055
+# [v]
+logging:
+  level:
+    com.netflix.discovery.TimedSupervisorTask: "OFF"
