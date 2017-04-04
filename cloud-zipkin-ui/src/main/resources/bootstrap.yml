@@ -1,6 +1,6 @@
 spring:
   application:
-    name : cloud-zipkin-ui
+    name: cloud-zipkin-ui
   profiles:
     active: dev
   cloud:
@@ -14,13 +14,29 @@ spring:
 
 spring:
   profiles: dev
+  datasource:
+    schema: classpath:/mysql.sql
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.99.100:3306/springcloud
+    username: root
+    password: 1234
+    initialize: true
+    continueOnError: true
+  sleuth:
+    enabled: false
 
 server:
-  port : 9012
+  port: 9012
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
+
+
+zipkin:
+  storage:
+    type: mysql
 
 ---
 
@@ -28,7 +44,7 @@ spring:
   profiles: docker
 
 server:
-  port : ${SERVICE_PORT}
+  port: ${SERVICE_PORT}
 
 eureka:
   instance:

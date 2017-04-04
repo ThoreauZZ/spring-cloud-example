@@ -1,5 +1,5 @@
 spring:
-  application.name : cloud-server-config
+  application.name: cloud-server-config
   profiles.active: dev
   cloud:
     config:
@@ -15,7 +15,7 @@ spring:
           destination: springCloudBusInput
           contentType: application/json
 server:
-  port : 9000
+  port: 9000
 
 ---
 spring:
@@ -32,7 +32,7 @@ spring:
   profiles: docker
 
 server:
-  port : ${SERVICE_PORT}
+  port: ${SERVICE_PORT}
 
 eureka:
   instance:
