@@ -18,7 +18,7 @@ spring:
     schema: classpath:/mysql.sql
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.99.100:3306/springcloud
+    url: jdbc:mysql://192.168.99.100:3306/zipkin
     username: root
     password: 1234
     initialize: true
@@ -52,5 +52,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${REGISTRY_URL}
+
+zipkin:
+  storage:
+    type: mysql
+
 
 

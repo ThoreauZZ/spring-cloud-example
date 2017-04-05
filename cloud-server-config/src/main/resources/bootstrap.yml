@@ -6,7 +6,6 @@ spring:
       server:
         git:
           uri: https://github.com/ThoreauZZ/spring-cloud-example.git
-#           uri: file:///github/spring-learn
           searchPaths: config-repo
         bootstrap: true
     stream:

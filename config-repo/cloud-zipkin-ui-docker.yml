@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    schema: classpath:/mysql.sql
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://mysql:3306/zipkin?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    initialize: true
+    continueOnError: true
+  sleuth:
+    enabled: false
+
+zipkin:
+  storage:
+    type: mysql
+
