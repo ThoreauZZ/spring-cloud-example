@@ -27,7 +27,18 @@ eureka:
 
 
 logging:
-  level.org.springframework.security: DEBUG
+  level:
+    com.netflix.loadbalancer: DEBUG
+    com.netflix.discovery: INFO
+    org.springframework.security: DEBUG
+
+ribbon:
+  ServerListRefreshInterval: 2000
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 4
+
 
 zuul:
   routes:
@@ -62,6 +73,7 @@ hystrix:
   threadpool:
     default:
       coreSize: 50
+
 
 ---
 
