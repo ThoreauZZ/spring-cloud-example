@@ -62,18 +62,18 @@ public class ComxLogger {
     public void error(String str)   { appendDebugInfo(str);logger.error(traceId + " " + str);}
 
     public void trace(Throwable throwable) {
-        throwable.printStackTrace();
+        logger.trace(throwable.getMessage(), throwable);
     }
     public void debug(Throwable throwable) {
-        throwable.printStackTrace();
+        logger.debug(throwable.getMessage(), throwable);
     }
     public void info(Throwable throwable) {
-        throwable.printStackTrace();
+        logger.info(throwable.getMessage(), throwable);
     }
     public void warn(Throwable throwable) {
-        throwable.printStackTrace();
+        logger.warn(throwable.getMessage(), throwable);
     }
     public void error(Throwable throwable) {
-        throwable.printStackTrace();
+        logger.error(throwable.getMessage(), throwable);
     }
 }

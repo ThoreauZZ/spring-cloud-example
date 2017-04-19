@@ -3,10 +3,15 @@ package com.erdaoya.springcloud.comx.boot.server;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.erdaoya.springcloud.comx.boot.BootStrap;
+import com.erdaoya.springcloud.comx.utils.rest.RequestMessage;
 import com.erdaoya.springcloud.comx.utils.rest.ResponseMessage;
 import com.erdaoya.springcloud.comx.utils.rest.Url;
-import com.erdaoya.springcloud.comx.utils.rest.RequestMessage;
 import com.erdaoya.springcloud.comx.utils.rest.UrlException;
+import com.gomeplus.oversea.bs.common.exception.RestfullBaseException;
+import com.gomeplus.oversea.bs.common.exception.code3xx.C301Exception;
+import com.gomeplus.oversea.bs.common.exception.code3xx.C302Exception;
+import com.gomeplus.oversea.bs.common.exception.code4xx.*;
+import com.gomeplus.oversea.bs.common.exception.code5xx.C500Exception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +35,7 @@ public class ComxSpringCloudEntrance {
     @RequestMapping(value = "/**")
     public void boot(HttpServletRequest request, HttpServletResponse response) throws IOException{
         ResponseMessage responseMessage;
+        Boolean springSwitch = true;
         try {
             HashMap<String, String> headers = new HashMap<>();
             for (Enumeration headersNames = request.getHeaderNames(); headersNames.hasMoreElements(); ) {
@@ -40,6 +46,7 @@ public class ComxSpringCloudEntrance {
             String dataStr = request.getReader().lines().reduce("", (accumulator, actual) -> accumulator + actual);
             JSONObject data = JSON.parseObject(dataStr);
 
+            if ("1".equals(url.getQuery().get("comxfullreturn"))) springSwitch = false;
             RequestMessage requestMessage = new RequestMessage(url, request.getMethod(), data, headers, 0);
             requestMessage.setRestTemplate(restTemplate);
             responseMessage = BootStrap.start(requestMessage);
@@ -50,15 +57,63 @@ public class ComxSpringCloudEntrance {
             String msg = "unserialize post data error:" + ex.getMessage();
             responseMessage = new ResponseMessage(null, msg, 500);
         }
-        print(responseMessage, response);
+
+        //printfull(responseMessage, response);
+        if (springSwitch)   print(responseMessage, response);
+        else                printfull(responseMessage, response);
     }
 
-    public void print(ResponseMessage responseMessage, HttpServletResponse response) throws IOException{
+    public void print(ResponseMessage responseMessage, HttpServletResponse response) throws IOException, RestfullBaseException {
         response.setContentType("text/json;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        //response.getWriter().println(responseMessage.sendForSpringCloud());
+        Integer statusCode = responseMessage.getCode();
+        if (statusCode.equals(200)) {
+            response.getWriter().println(responseMessage.sendForSpringCloud());
+        } else {
+            throwExceptions(statusCode, responseMessage.getMessage());
+        }
+    }
+
+    public void printfull(ResponseMessage responseMessage, HttpServletResponse response) throws IOException{
+        response.setContentType("text/json;charset=utf-8");
+        response.setStatus(responseMessage.getCode());
         response.getWriter().println(responseMessage.send());
     }
+
+
+    public void throwExceptions(int statusCode, String message) throws RestfullBaseException {
+        switch (statusCode) {
+            case 301: throw new C301Exception(message);
+            case 302: throw new C302Exception(message);
+            case 400: throw new C400Exception(message);
+            case 401: throw new C401Exception(message);
+            case 403: throw new C403Exception(message);
+            case 404: throw new C404Exception(message);
+            case 405: throw new C405Exception(message);
+            case 406: throw new C406Exception(message);
+            case 409: throw new C409Exception(message);
+            case 410: throw new C410Exception(message);
+            case 415: throw new C415Exception(message);
+            case 422: throw new C422Exception(message);
+            case 500: throw new C500Exception(message);
+            default:throw new C500Exception(message);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <artifactId>cloud-service-comx</artifactId>
     <packaging>jar</packaging>
     <name>cloud-service-comx</name>
-
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -17,11 +17,13 @@
     </properties>
 
     <parent>
-        <groupId>com.erdaoya</groupId>
-        <artifactId>spring-cloud-example-parent</artifactId>
+        <groupId>com.gomeplus.oversea</groupId>
+        <artifactId>bs-cloud-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <dependencies>
+
+
         <!-- common utils -->
         <!-- fastjson -->
         <dependency>
@@ -49,22 +51,27 @@
         </dependency>
 
 
+
+        <!-- http clients -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
+        <!-- end http client-->
+        <!-- end common utils -->
 
 
 
         <!-- servers -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>9.4.0.v20161208</version>
         </dependency>
-
-
+        <!-- end servers -->
         <!-- netty -->
         <dependency>
             <groupId>${nettygroup}</groupId>
@@ -116,24 +123,55 @@
             <artifactId>netty-codec-stomp</artifactId>
             <version>${nettyversion}</version>
         </dependency>
+        <!--
+        all 缺 部分包
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>5.0.0.Alpha2</version>
+        </dependency>
+        -->
+        <!-- netty -->
 
+
+
+
+
+
+
+        <!-- io utils -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava-base -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>21.0</version>
         </dependency>
+        <!-- end io utils -->
 
+        <!-- jedis -->
+        <!-- jedis 客户端不兼容 不能随意升级 -->
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <!-- end jedis -->
 
+
+
+
+
+
+
+        <!-- groovy and test-->
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
@@ -154,10 +192,19 @@
         <!-- end groovy and test-->
 
 
+
+
+
+
         <!-- spring and springcloud -->
+        <!--config-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
         <dependency>
@@ -180,13 +227,25 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.gomeplus.oversea</groupId>
+            <artifactId>bs-common-exception</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
+
 
     </dependencies>
+
+
+
 
 
     <profiles>
@@ -205,10 +264,46 @@
 
     <build>
         <plugins>
+            <!--  spring cloud -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+
+
+            <!-- for groovy, use gmaven -->
+            <!--
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <goals> <goal>generateTestStubs</goal> <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+            <!-- use java 1.8 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- jetty -->
+            <!--
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.0.v20161208</version>
+            </plugin>
+            -->
         </plugins>
     </build>
 </project>

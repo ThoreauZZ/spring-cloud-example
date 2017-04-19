@@ -51,7 +51,7 @@ public class DecorCache {
         HashMap vars = new HashMap();
         vars.put("data", data);
         vars.put("request", context.getRequest());
-        String key =  prefix + keyTpl.render(vars, context);
+        String key =  prefix + keyTpl.render(vars, context, true);
 
         return new DecorCache(key, config.rintvalue(DecorCache.FIELD_TTL), config.bool(DecorCache.FIELD_WITH_CHILDREN, false));
     }

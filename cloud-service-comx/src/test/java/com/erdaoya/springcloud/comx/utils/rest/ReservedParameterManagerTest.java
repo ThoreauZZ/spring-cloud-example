@@ -14,7 +14,7 @@ public class ReservedParameterManagerTest {
     public void test() throws UrlException{
         HashMap<String, String> headerparams  = new HashMap<>();
         headerparams.put("X-Gomeplus-Login-Token", "aaaa");
-        headerparams.put("X-Gomeplus-User-Id", "userIdA");
+        headerparams.put("x-gomeplus-user-id", "userIdA");
         Url url = new Url("http://t.e.s.t.com/p/a/t/h?query1=test&loginToken=bbbb");
         String method = "put";
         HashMap<String, Object> data  = new HashMap<>();

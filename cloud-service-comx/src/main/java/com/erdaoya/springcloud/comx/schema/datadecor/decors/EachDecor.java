@@ -1,24 +1,19 @@
 package com.erdaoya.springcloud.comx.schema.datadecor.decors;
 
-import com.alibaba.fastjson.JSONPath;
-import com.erdaoya.springcloud.comx.context.Context;
-import com.erdaoya.springcloud.comx.utils.config.ConfigException;
 import com.erdaoya.springcloud.comx.source.Source;
+import com.erdaoya.springcloud.comx.utils.config.ConfigException;
+import com.erdaoya.springcloud.comx.context.Context;
 import com.erdaoya.springcloud.comx.source.SourceException;
 import com.erdaoya.springcloud.comx.utils.config.Config;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by xue on 12/20/16.
  */
-public class EachDecor extends AbstractDecor {
+public class EachDecor extends AbstractDecor implements RefJsonPath{
     public static final String FIELD_SOURCE         = "source";
     public static final String FIELD_FIELD          = "field";
-    public static final String FIELD_REF_JSON_PATH  = "refJsonPath";
 
     protected Source source;
     protected String field;
@@ -26,46 +21,34 @@ public class EachDecor extends AbstractDecor {
     public EachDecor(Config conf){
         super(conf);
     }
-    public String getType(){ return TYPE_EACH;}
+    public String getType(){ return AbstractDecor.TYPE_EACH;}
 
 
 
     public void doDecorate(Object data, Context context) throws ConfigException, SourceException{
-        ArrayList matchedNodes = this.getMatchedNodes(data, context);
+        List matchedNodes = getMatchedNodes(conf, data, context);
         source = new Source(conf.rsub(EachDecor.FIELD_SOURCE));
         field  = conf.str(EachDecor.FIELD_FIELD,  "");
 
-        context.getLogger().debug("decor eachdecor, input data:"+ data.toString());
-        //
-        for (Object ref: matchedNodes) {
-            this.decorateOneNode(ref, data, context);
-        }
+        // TODO 针对简单source load 情况， 内部应不会产生数据冲突， 我们可以采用 parallel 或者 fiber 形式都可以
+        //for (Object ref: matchedNodes) {
+        //    this.decorateOneNode(ref, data, context);
+        //}
+        // 其实ref 是一个 map (之后在最前面约束ref 为 map)
+        ArrayList<Exception> exceptions = new ArrayList<>();
+        matchedNodes.parallelStream().forEach(ref -> {
+            try {
+                decorateOneNode(ref, data, context);
+            } catch(Exception ex) {
+                exceptions.add(ex);
+            }
+        });
+        if (exceptions.isEmpty()) return;
+        Exception ex = exceptions.get(0);
+        if (ex instanceof SourceException) throw (SourceException) ex;
+        throw new SourceException(exceptions.get(0));
     }
 
-    /**
-     * 记录日志
-     * TODO 需要验证 refjsonpath 效果一致
-     * @param data
-     * @param context 记录日志
-     * @return ArrayList
-     */
-    protected ArrayList getMatchedNodes(Object data, Context context){
-        String refJsonPath = conf.str(EachDecor.FIELD_REF_JSON_PATH, null);
-        if (null == refJsonPath) {
-            return new ArrayList(Arrays.asList(data));
-        }
-        try {
-            Object matchedNode = JSONPath.eval(data, refJsonPath);
-            if (matchedNode instanceof ArrayList) {
-                return (ArrayList) matchedNode;
-            } else {
-                return new ArrayList(Arrays.asList(matchedNode));
-            }
-        } catch(Exception ex){
-            context.getLogger().warn("Decor Eachdecor, refJsonPath error, refJsonPath:"+ refJsonPath+ ", data:" + data);
-            return new ArrayList(Arrays.asList(data));
-        }
-    }
 
     /**
      * 调用Source loadData; TODO 修正逻辑
@@ -74,16 +57,15 @@ public class EachDecor extends AbstractDecor {
      * @param context
      */
     public void decorateOneNode(Object ref, Object data, Context context) throws ConfigException, SourceException{
-        HashMap<String, Object> vars = new HashMap<>();
-        vars.put("ref", ref);
-        vars.put("data", data);
+        HashMap<String, Object> vars = new HashMap<String, Object>(){{
+                put("ref", ref);
+                put("data", data);
+            }
+        };
         Object loaded = source.loadData(context, vars);
-        Map obj = new HashMap<>();
-        if (field.isEmpty()) {
-            obj = (Map) loaded;
-        } else {
-            obj.put(field, loaded);
-        }
+        if (null == loaded) return;
+
+        Map obj = field.isEmpty()? (Map) loaded: new HashMap<String, Object>(){{put(field, loaded);}};
         if (ref instanceof Map) {
             for (Object key: obj.keySet()) {
                 ((Map)ref).put(key, obj.get(key));
