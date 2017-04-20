@@ -51,7 +51,6 @@
         </dependency>
 
 
-
         <!-- http clients -->
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
@@ -61,7 +60,6 @@
         </dependency>
         <!-- end http client-->
         <!-- end common utils -->
-
 
 
         <!-- servers -->
@@ -123,20 +121,6 @@
             <artifactId>netty-codec-stomp</artifactId>
             <version>${nettyversion}</version>
         </dependency>
-        <!--
-        all 缺 部分包
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>5.0.0.Alpha2</version>
-        </dependency>
-        -->
-        <!-- netty -->
-
-
-
-
-
 
 
         <!-- io utils -->
@@ -155,7 +139,6 @@
         <!-- end io utils -->
 
         <!-- jedis -->
-        <!-- jedis 客户端不兼容 不能随意升级 -->
         <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
@@ -165,13 +148,7 @@
         <!-- end jedis -->
 
 
-
-
-
-
-
         <!-- groovy and test-->
-        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
@@ -190,10 +167,6 @@
             <version>RELEASE</version>
         </dependency>
         <!-- end groovy and test-->
-
-
-
-
 
 
         <!-- spring and springcloud -->
@@ -227,7 +200,6 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
@@ -240,12 +212,7 @@
         </dependency>
 
 
-
-
     </dependencies>
-
-
-
 
 
     <profiles>
@@ -264,29 +231,10 @@
 
     <build>
         <plugins>
-            <!--  spring cloud -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-
-
-            <!-- for groovy, use gmaven -->
-            <!--
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <goals> <goal>generateTestStubs</goal> <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-            <!-- use java 1.8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -296,14 +244,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!-- jetty -->
-            <!--
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.0.v20161208</version>
-            </plugin>
-            -->
         </plugins>
     </build>
 </project>
