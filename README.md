@@ -6,7 +6,7 @@ English | [中文WIKI](doc/README-CN.md)
 * spring cloud config 
 * Spring Cloud Netflix: eureka zull ribbon feign
 * Spring Cloud Bus
-* Spring Cloud Sleuth + zipkin
+* Spring Cloud Sleuth + zipkin + mysql
 * maven + docker 
 * swagger
 * rabbitmq mybatis
@@ -15,7 +15,7 @@ English | [中文WIKI](doc/README-CN.md)
 ## Quick Start
 ### Requirements
 The requirements for running this example on your machine are found below.
-* Maven 3
+* Maven 3.5.0
 * Java 8
 * Docker 1.13.1
 * Docker Compose 1.10.0
@@ -142,7 +142,9 @@ $curl -s -H "Accept:application/json" http://localhost:9001/eureka/apps | jq '.a
 Hystrix : http://10.69.42.86:9005/ext/user?id=1
 
 ![](/doc/images/Hystrix Dashboard.png)
+
 Paste url [http://localhost:9010/turbine.stream](http://localhost:9010/turbine.stream) in Hystrix Dashboard, and moniter stream.
+
 ![](doc/images/Hystrix Stream turbine.png)
 
 
