@@ -1,6 +1,6 @@
 spring:
   application:
-    name: comx
+    name: cloud-service-comx
   cloud:
       config:
         discovery:
