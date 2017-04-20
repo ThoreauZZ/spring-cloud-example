@@ -22,6 +22,7 @@ server:
 
 eureka:
   client:
+    registry-fetch-interval-seconds: 4
     serviceUrl:
       defaultZone: http://localhost:9001/eureka/
 
@@ -34,10 +35,6 @@ logging:
 
 ribbon:
   ServerListRefreshInterval: 2000
-
-eureka:
-  client:
-    registry-fetch-interval-seconds: 4
 
 
 zuul:
