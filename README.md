@@ -2,7 +2,7 @@
 ---
 English | [中文WIKI](doc/README-CN.md) 
 
-!()[https://travis-ci.org/ThoreauZZ/spring-cloud-example.svg?branch=master]
+![](https://travis-ci.org/ThoreauZZ/spring-cloud-example.svg?branch=master)
 
 ## technologies
 * spring cloud config 
