@@ -135,7 +135,7 @@ services:
       - mysql:mysql
       - user:user
       - trade:trade
-      - ext:ext
+      - client:client
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
@@ -151,7 +151,7 @@ services:
     ports:
       - "9010:9010"
     links:
-      - ext:ext
+      - client:client
       - user:user
       - trade:trade
       - eureka:discovery
