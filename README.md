@@ -206,9 +206,70 @@ If you want the api include seller details(assume that sellerId is associated wi
 
 `cloud-service-comx` will help you.
 
+json config: `api/ext/trade/order/get.json`
+```json
+{
+  "meta": {
+    "module": "order",
+    "name": "order detail ext",
+    "memo": "get full orderDetail",
+    "uri": {
+      "parameters": [
+        {
+          "field": "id",
+          "name": "order id",
+          "type": "long",
+          "memo": "must"
+        }
+      ]
+    }
+  },
+  "decors": [
+    {
+      "source": {
+        "base":"springcloud",
+        "uri":"http://cloud-service-trade/trade/order?id={request.url.query.id}"
+      },
+      "decors": [
+        {
+          "field": "seller",
+          "source": {
+            "base":"springcloud",
+            "uri": "http://cloud-service-user/user/persionalInfo?id={ref.sellerId}",
+            "onError": {
+              "type": "ignore"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+gatewat --> cloud-service-comx :
+```
+$ curl -s 127.0.0.1:9006/ext/trade/order?id=1 | jq .
+  {
+    "message": "",
+    "data": {
+      "seller": {
+        "id": 2,
+        "loginName": "henry",
+        "nickName": "henry",
+        "password": "1234",
+        "mobile": "12345678901",
+        "email": "12345678909",
+        "gender": 1,
+        "registerTime": 2017
+      },
+      "sellerId": 2,
+      "price": 12.123,
+      "customerId": 1,
+      "id": 1
+    }
+  }
 ```
 
-```
 
 
 #### 6. Admin
