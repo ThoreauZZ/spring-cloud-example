@@ -21,6 +21,7 @@ public class ResponseMessage {
     static final String FIELD_MESSAGE               = "message";
     static final String FIELD_DATA                  = "data";
     static final String FIELD_ERROR                 = "error";
+    static final String FIELD_STATUS                = "status";
     static final String DEFAULT_HEADER_CONTENT_TYPE = "Content-Type: application/json; charset=UTF-8";
     static final String JSONP_HEADER_CONTENT_TYPE   = "Content-Type: application/javascript; charset=UTF-8";
     static final String HEADER_PROTOCOL_LINE        = "HTTP/1.1";
@@ -50,6 +51,7 @@ public class ResponseMessage {
         body.put(this.FIELD_DEBUG, this.debug);
         body.put(this.FIELD_DATA, this.data);
         body.put(this.FIELD_MESSAGE, this.message);
+        body.put(this.FIELD_STATUS, this.code);
         return JSONObject.toJSONString(body, SerializerFeature.WriteMapNullValue);
     }
 

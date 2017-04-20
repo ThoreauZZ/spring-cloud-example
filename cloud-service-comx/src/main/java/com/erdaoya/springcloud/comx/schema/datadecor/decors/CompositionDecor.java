@@ -11,6 +11,6 @@ public class CompositionDecor extends AbstractDecor{
         super(conf);
     }
     public void doDecorate(Object data, Context context){}
-    public String getType(){return TYPE_COMPOSITION;}
+    public String getType(){return AbstractDecor.TYPE_COMPOSITION;}
 
 }

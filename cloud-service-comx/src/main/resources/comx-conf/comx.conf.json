@@ -1,0 +1,21 @@
+{
+  "urlPrefix":"http://COMX",
+  "sourceBases":[
+    {
+      "id":"springcloud",
+      "type":"springcloud"
+    },
+    {
+      "id":"springcloud-config",
+      "type":"springcloud",
+      "urlPrefix":"http://config-server/"
+    },
+    {
+      "id":"default",
+      "type":"springcloud"
+    }
+  ],
+  "cache":{
+    "type": "springbootredis"
+  }
+}

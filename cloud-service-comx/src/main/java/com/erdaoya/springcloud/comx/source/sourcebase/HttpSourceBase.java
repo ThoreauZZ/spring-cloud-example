@@ -1,11 +1,10 @@
 package com.erdaoya.springcloud.comx.source.sourcebase;
 
-import com.erdaoya.springcloud.comx.context.Context;
 import com.erdaoya.springcloud.comx.utils.config.ConfigException;
+import com.erdaoya.springcloud.comx.context.Context;
+import com.erdaoya.springcloud.comx.source.SourceException;
 import com.erdaoya.springcloud.comx.utils.config.Config;
 import com.erdaoya.springcloud.comx.utils.rest.RequestMessage;
-
-import java.io.IOException;
 
 /**
  * Created by xue on 12/23/16.
@@ -15,7 +14,7 @@ public class HttpSourceBase extends AbstractRequestBasedSourceBase{
 
     public HttpSourceBase(Config conf){super(conf);}
 
-    protected Object doRequest(RequestMessage request, Context context) throws IOException{
+    protected Object doRequest(RequestMessage request, Context context) throws SourceException{
         // TODO 处理请求前数据
         // 处理 traceId
         // 处理 X-Forwarded-For

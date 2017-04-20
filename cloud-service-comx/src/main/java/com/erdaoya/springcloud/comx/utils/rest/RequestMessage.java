@@ -3,10 +3,11 @@ package com.erdaoya.springcloud.comx.utils.rest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.erdaoya.springcloud.comx.context.Context;
+import com.erdaoya.springcloud.comx.source.SourceBizException;
+import com.erdaoya.springcloud.comx.source.SourceException;
 import com.erdaoya.springcloud.comx.utils.rest.clients.ApacheHttpClient;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +23,7 @@ public class RequestMessage implements ArrayAccessBase{
     public static final String METHOD_DELETE   = "delete";
     public static final String METHOD_PUT      = "put";
     private static final String HEADER_FIELD_TRACE_ID           = "X-Gomeplus-Trace-Id";
+    private static final String HEADER_FIELD_TRACE_ID_LOWERCASE = "x-gomeplus-trace-id";
     private static final String HEADER_FIELD_X_FORWARDED_FOR    = "X-Forwarded-For";
     private static final String QUERY_FIELD_TRACE_ID            = "traceId";
     private static final String DEFAULT_TRACE_ID_PREFIX         = "COMX";
@@ -91,27 +93,36 @@ public class RequestMessage implements ArrayAccessBase{
      * @param context 当前context
      * @return ResponseMessage
      */
-    public ResponseMessage execute(Context context) throws IOException {
+    public ResponseMessage execute(Context context) throws SourceException {
         String targetUrl   = url.getUrl();
         String requestData = (null != data)?new JSONObject(data).toJSONString():"";
 
         // 执行 HttpClient request 函数
+        // TODO 需要将错误码和信息 throw 出去
+        // TODO 暂时用SourceExeption 之后将这一部分抽出去
         try {
-            HttpResponse httpResponse = ApacheHttpClient.request(targetUrl, method.toUpperCase(), requestData, headerParameters, timeout);
-            int status = httpResponse.getStatusLine().getStatusCode();
+            HttpResponse httpResponse   = ApacheHttpClient.request(targetUrl, method.toUpperCase(), requestData, headerParameters, timeout);
+            int status                  = httpResponse.getStatusLine().getStatusCode();
+            HttpEntity entity           = httpResponse.getEntity();
+            String responseBody         = (entity != null) ? EntityUtils.toString(entity) : null;
+
             if (status >= 200 && status < 300) {
-                HttpEntity entity = httpResponse.getEntity();
-                String responseBody = (entity != null) ? EntityUtils.toString(entity) : null;
                 JSONObject responseBodyJson = JSON.parseObject(responseBody);
                 return new ResponseMessage(responseBodyJson.get("data"), responseBodyJson.get("message").toString(), status);
             } else {
-                context.getLogger().error("loading http source :" + targetUrl + " error status code:" + status);
-                throw new ClientProtocolException("Unexpected response status: " + status);
+                context.getLogger().error("Loading URI:" + targetUrl + " status:" + status + " responseBody:" + responseBody);
+                JSONObject responseBodyJson;
+                try {
+                    responseBodyJson = JSON.parseObject(responseBody);
+                } catch (Exception ex) {
+                    // response body info
+                    throw new SourceBizException("", status);
+                }
+                throw new SourceBizException(responseBodyJson.get("message").toString(), status);
             }
-        } catch (Exception ex) {
-            // TODO bizness exception
+        } catch (IOException ex) {
             context.getLogger().error(ex.getMessage());
-            throw ex;
+            throw new SourceException(ex);
         }
     }
 
@@ -141,6 +152,8 @@ public class RequestMessage implements ArrayAccessBase{
         String traceId = (String)url.getQuery().get(QUERY_FIELD_TRACE_ID);
         if (null != traceId) return traceId;
         traceId = getHeaderParameter(HEADER_FIELD_TRACE_ID);
+        if (null != traceId) return traceId;
+        traceId = getHeaderParameter(HEADER_FIELD_TRACE_ID_LOWERCASE);
         if (null != traceId) return traceId;
         return "";
     }

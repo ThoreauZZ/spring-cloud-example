@@ -13,10 +13,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by xue on 2/3/17.
  //@ImportResource("spring/spring-boot.xml")
- TODO logback-spring.xml & logback.xml 需要合并
  */
 @SpringBootApplication
-@ComponentScan("com.gomeplus.comx")
+@ComponentScan("com.erdaoya.springcloud")
 @EnableDiscoveryClient
 public class ComxSpringCloudApplication {
 

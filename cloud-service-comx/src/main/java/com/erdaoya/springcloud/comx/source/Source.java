@@ -1,12 +1,12 @@
 package com.erdaoya.springcloud.comx.source;
 
 import com.alibaba.fastjson.JSONPath;
-import com.erdaoya.springcloud.comx.context.Context;
-import com.erdaoya.springcloud.comx.source.sourcebase.AbstractSourceBase;
+import com.erdaoya.springcloud.comx.schema.onError.Strategy;
 import com.erdaoya.springcloud.comx.source.sourcebase.UnmatchedRequestMethodException;
 import com.erdaoya.springcloud.comx.utils.config.ConfigException;
+import com.erdaoya.springcloud.comx.context.Context;
 import com.erdaoya.springcloud.comx.schema.TinyTemplate;
-import com.erdaoya.springcloud.comx.schema.onError.Strategy;
+import com.erdaoya.springcloud.comx.source.sourcebase.AbstractSourceBase;
 import com.erdaoya.springcloud.comx.source.sourcebase.SourceBaseFactory;
 import com.erdaoya.springcloud.comx.utils.config.Config;
 
@@ -54,12 +54,12 @@ public class Source {
 
     /**
      * loadData 外层 记录日志
+     * since redis operation, choose nanotime; 1E-9
      * @param context   context
      * @param reservedVariables {ref|request|data|renderedUri} TODO renderedUri 是否在这里存疑
      * @return Object data
      */
     public Object loadData(Context context, HashMap<String, Object> reservedVariables) throws ConfigException, SourceException{
-        // since redis operation, choose nanotime; 1E-9
         long        time0   = System.nanoTime();
         Object      result  = null;
         Exception   ex      = null;
@@ -73,11 +73,14 @@ public class Source {
             ex = ex0;
         }
 
-        if (result != null) return result;
+        if (result != null)     return result;
         Config backupConf = conf.sub(Source.FIELD_BACKUP);
         if (backupConf.rawData().isEmpty()) {
-            context.getLogger().error("Source loading backupConf empty; URI:" + this.getUri());
-            if (ex != null)     throw new SourceException(ex);
+            if (ex != null) {
+                context.getLogger().error("Source loading error & backupConf empty; URI:" + this.getUri());
+                if (ex instanceof SourceException)  throw (SourceException) ex;
+                else                                throw new SourceException(ex);
+            }
             return null;
         }
         Source backSource = new Source(backupConf);
@@ -93,7 +96,7 @@ public class Source {
             String uri          = getUri();
             TinyTemplate tpl    = new TinyTemplate(uri);
             reservedVariables.put(RESERVED_TPL_VAR_REQUEST, context.getRequest());
-            String renderedUri  = tpl.render(reservedVariables, context);
+            String renderedUri  = tpl.render(reservedVariables, context, true);
             reservedVariables.put(RESERVED_RENDERED_URI, renderedUri);
 
             Object data = loadCache(context, renderedUri);

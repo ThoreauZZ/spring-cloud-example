@@ -2,8 +2,8 @@ package com.erdaoya.springcloud.comx.utils.rest.clients;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.erdaoya.springcloud.comx.utils.rest.Url;
 import com.erdaoya.springcloud.comx.utils.rest.ResponseMessage;
+import com.erdaoya.springcloud.comx.utils.rest.Url;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;

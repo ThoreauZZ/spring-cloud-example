@@ -1,7 +1,7 @@
 package com.erdaoya.springcloud.comx.utils.cache;
 
-import com.erdaoya.springcloud.comx.utils.config.Config;
 import com.erdaoya.springcloud.comx.utils.config.ConfigException;
+import com.erdaoya.springcloud.comx.utils.config.Config;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by xue on 12/29/16.
  *
  * Pass config and return Single JedisCluster
- * for Jedis pool is multithread-safe, it's not neccessary to get a JedisCluster pool;
+ * since Jedis pool is multithread-safe, it's not neccessary to get a JedisCluster pool;
  * 并封装 不同版本jedis 不一样 函数
  */
 public class JedisClusterCache extends AbstractCache{
@@ -21,7 +21,7 @@ public class JedisClusterCache extends AbstractCache{
     private JedisCluster jc;
 
 
-    JedisClusterCache(Config config) throws ConfigException{
+    JedisClusterCache(Config config) throws ConfigException {
         super(config);
         Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 

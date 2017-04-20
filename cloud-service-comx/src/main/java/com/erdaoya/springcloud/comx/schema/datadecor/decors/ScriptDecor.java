@@ -1,18 +1,18 @@
 package com.erdaoya.springcloud.comx.schema.datadecor.decors;
 
-import com.alibaba.fastjson.JSONPath;
-import com.erdaoya.springcloud.comx.context.Context;
 import com.erdaoya.springcloud.comx.schema.datadecor.DecorException;
+import com.erdaoya.springcloud.comx.boot.ComxConfLoader;
+import com.erdaoya.springcloud.comx.context.Context;
 import com.erdaoya.springcloud.comx.utils.config.Config;
 import groovy.lang.Binding;
 import groovy.lang.GroovyObject;
 import groovy.lang.GroovyShell;
 import groovy.util.GroovyScriptEngine;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.util.*;
 
 
 /**
@@ -20,28 +20,33 @@ import java.util.HashMap;
  * Created by xue on 1/17/17.
  * TODO 勉强能用 需要测试用例
  */
-public class ScriptDecor extends AbstractDecor{
+@Slf4j
+public class ScriptDecor extends AbstractDecor implements RefJsonPath{
     public ScriptDecor(Config conf) {
         super(conf);
     }
     public String getType() {
-        return TYPE_SCRIPT;
+        return AbstractDecor.TYPE_SCRIPT;
     }
 
     static GroovyScriptEngine groovyScriptEngine;
 
     static {
         try {
-            // TODO 从comxconf 里面读取
-            groovyScriptEngine = new GroovyScriptEngine("/www/comx-conf/groovy-scripts/");
+            Properties prop     = new Properties();
+            InputStream in      = ComxConfLoader.class.getClassLoader().getResourceAsStream("comx.properties");
+            prop.load(in);
+            String groovyHome   = prop.getProperty("comx_home") + "/groovy-scripts/";
+            groovyScriptEngine  = new GroovyScriptEngine(groovyHome);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("fail to load properties!", e);
+            throw new RuntimeException(e);
         }
     }
-// TODO 暂时只支持 script, lambda 再想办法
-    public void doDecorate(Object data, Context context) throws DecorException{
-        context.getLogger().error("Decor ScriptDecor: none:" + conf.rawData());
-        ArrayList matchedNodes = this.getMatchedNodes(data, context);
+
+    public void doDecorate(Object data, Context context) throws DecorException {
+        context.getLogger().error("Decor ScriptDecor: init:" + conf.rawData());
+        List matchedNodes = getMatchedNodes(conf, data, context);
 
         try {
             String scriptName = conf.str("jscript", "");
@@ -65,7 +70,7 @@ public class ScriptDecor extends AbstractDecor{
                     shell.evaluate(lambda);
                 }
             } else {
-                context.getLogger().error("Decor, ScriptDecor script or lambda empty");
+                context.getLogger().error("Decor, ScriptDecor jscript or jlambda empty");
             }
             // do nothing
         } catch (Exception ex) {
@@ -74,33 +79,4 @@ public class ScriptDecor extends AbstractDecor{
             throw new DecorException(ex);
         }
     }
-
-
-
-    /**
-     * 记录日志需要
-     * TODO 和eachdecor 一致， 需要抽象出来
-     * TODO 需要验证 refjsonpath 效果一致
-     * @param data
-     * @param context 记录日志
-     * @return ArrayList
-     */
-    protected ArrayList getMatchedNodes(Object data, Context context){
-        String refJsonPath = conf.str(EachDecor.FIELD_REF_JSON_PATH, null);
-        if (null == refJsonPath) {
-            return new ArrayList(Arrays.asList(data));
-        }
-        try {
-            Object matchedNode = JSONPath.eval(data, refJsonPath);
-            if (matchedNode instanceof ArrayList) {
-                return (ArrayList) matchedNode;
-            } else {
-                return new ArrayList(Arrays.asList(matchedNode));
-            }
-        } catch(Exception ex){
-            context.getLogger().warn("Decor Eachdecor, refJsonPath error, refJsonPath:"+ refJsonPath+ ", data:" + data);
-            return new ArrayList(Arrays.asList(data));
-        }
-    }
-
 }

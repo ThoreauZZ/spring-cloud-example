@@ -1,6 +1,12 @@
 spring:
   application:
-    name: cloud-service-comx
+    name: comx
+  cloud:
+      config:
+        discovery:
+          enabled: true
+          serviceId: cloud-server-config
+          
 server:
   port: 9019
 
@@ -14,6 +20,11 @@ eureka:
 
 spring:
   profiles: docker
+#  boot:
+#      admin:
+#        turbine:
+#          url: ${TURBINE_URL}
+#          clusters: default
 
 server:
   port: ${SERVICE_PORT}

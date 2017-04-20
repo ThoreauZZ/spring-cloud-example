@@ -11,5 +11,5 @@ public class RootDecor extends CompositionDecor{
         super(conf);
     }
     public void doDecorate(Object data, Context context){}
-    public String getType(){return TYPE_ROOT;}
+    public String getType(){return AbstractDecor.TYPE_ROOT;}
 }

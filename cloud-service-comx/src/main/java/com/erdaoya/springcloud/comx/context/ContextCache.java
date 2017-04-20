@@ -10,7 +10,8 @@ import java.util.Map;
  * Created by xue on 1/3/17.
  * context cache 业务相关及日志等 封装在这里，业务直接调用，不直接使用utils/cache
  * 每个请求将有一个contextcache 实例 , utils/cache 同一个
- *
+ * TODO 针对 key 需要做处理 （特殊字符, 空格等)
+ * TODO 存储value 自己设定一个结构体?
  */
 public class ContextCache {
     private AbstractCache cache;
@@ -25,6 +26,7 @@ public class ContextCache {
         JSONObject jsonObject = new JSONObject(value);
         return cache.set(key, jsonObject.toJSONString(), time);
     }
+
     public Object getMapObject(String key) {
         //System.out.println("get "+ key);
         if (refreshingEnabled) return null;
@@ -48,7 +50,6 @@ public class ContextCache {
         return cache.set(key, value);
     }
     public String get(String key) {
-        if (refreshingEnabled) return null;
-        return cache.get(key);
+        return refreshingEnabled? null:cache.get(key);
     }
 }

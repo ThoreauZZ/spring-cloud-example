@@ -23,6 +23,11 @@ public class ReservedParameterManager {
             put("accept",       "Accept"                    );
             put("traceId",      "X-Gomeplus-Trace-Id"       );
             put("appVersion",   "X-Gomeplus-App-Version"    );
+
+
+
+            put("xLanguage",          "X-Gomeplus-Lang"     );
+            put("xTimezone",          "X-Gomeplus-Time-Zone");
         }
     };
     private static final HashMap<String, String> RESERVED_TO_QUERY_PARAMERTERS = new HashMap<String, String>(){
@@ -53,6 +58,12 @@ public class ReservedParameterManager {
 
         for (String queryName: RESERVED_PARAMETERS.keySet()) {
             String headerName = RESERVED_PARAMETERS.get(queryName);
+            String headerNameL = headerName.toLowerCase();
+            //TODO 临时 fix Spring 当中获取到的header 为 小写
+            if (headers.containsKey(headerNameL)) {
+                reservedHeaderParams.put(queryName, headers.get(headerNameL));
+            }
+
             if (headers.containsKey(headerName)) {
                 reservedHeaderParams.put(queryName, headers.get(headerName));
             }
@@ -61,7 +72,13 @@ public class ReservedParameterManager {
             }
         }
         for (String queryName: RESERVED_TO_QUERY_PARAMERTERS.keySet()) {
-            String headerName = RESERVED_PARAMETERS.get(queryName);
+            String headerName = RESERVED_TO_QUERY_PARAMERTERS.get(queryName);
+            String headerNameL = headerName.toLowerCase();
+            //TODO 临时 fix Spring 当中获取到的header 为 小写
+            if (headers.containsKey(headerNameL)) {
+                reservedQueryParams.put(queryName, queries.get(headerNameL));
+            }
+
             if (headers.containsKey(headerName)) {
                 reservedQueryParams.put(queryName, queries.get(headerName));
             }
@@ -81,7 +98,6 @@ public class ReservedParameterManager {
         return reservedQueryParams;
     }
 
-    // TODO 初始化之时直接将query和header中的冲突参数merge，以query为主
     public HashMap<String, String> getFilteredReservedHeaders(Context context) {
         HashMap<String, String> result = new HashMap<>();
         for (String queryName: reservedHeaderParams.keySet()) {
@@ -97,7 +113,6 @@ public class ReservedParameterManager {
 
 
 
-    //TODO
     public String getUserId() {
         String headerKey = "X-Gomeplus-User-Id";
         String queryKey  = "userId";

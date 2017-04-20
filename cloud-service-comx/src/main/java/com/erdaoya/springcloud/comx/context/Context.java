@@ -1,9 +1,9 @@
 package com.erdaoya.springcloud.comx.context;
 
-import com.erdaoya.springcloud.comx.utils.rest.RequestMessage;
-import com.erdaoya.springcloud.comx.utils.rest.ResponseMessage;
 import com.erdaoya.springcloud.comx.schema.Schema;
 import com.erdaoya.springcloud.comx.utils.log.ComxLogger;
+import com.erdaoya.springcloud.comx.utils.rest.RequestMessage;
+import com.erdaoya.springcloud.comx.utils.rest.ResponseMessage;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -11,19 +11,20 @@ import java.util.HashMap;
 
 /**
  * Created by xue on 12/16/16.
+ * TODO localCache 处理成特殊的类
  */
 public class Context {
-    private Schema                  schema;
+    private Schema schema;
     private RequestMessage          request;
     private User                    user;
     private ResponseMessage         response;
-    private ComxLogger              logger;
+    private ComxLogger logger;
     private ContextCache            cache;
-    // TODO 处理成特殊的类
     private HashMap<String, Object> localCache = new HashMap<>();
     private Boolean                 localCacheEnabled = false;
 
     private String          traceId;
+
     // TODO
     // 记录各资源请求
     // 似乎可以是个结构体来记录

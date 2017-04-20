@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <artifactId>cloud-service-comx</artifactId>
     <packaging>jar</packaging>
     <name>cloud-service-comx</name>
-
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -17,11 +17,13 @@
     </properties>
 
     <parent>
-        <groupId>com.erdaoya</groupId>
-        <artifactId>spring-cloud-example-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+    	<groupId>com.erdaoya</groupId>
+    	<artifactId>spring-cloud-example-parent</artifactId>
+    	<version>1.0-SNAPSHOT</version>
     </parent>
     <dependencies>
+
+
         <!-- common utils -->
         <!-- fastjson -->
         <dependency>
@@ -49,22 +51,25 @@
         </dependency>
 
 
+        <!-- http clients -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
-
+        <!-- end http client-->
+        <!-- end common utils -->
 
 
         <!-- servers -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>9.4.0.v20161208</version>
         </dependency>
-
-
+        <!-- end servers -->
         <!-- netty -->
         <dependency>
             <groupId>${nettygroup}</groupId>
@@ -117,23 +122,33 @@
             <version>${nettyversion}</version>
         </dependency>
 
+
+        <!-- io utils -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava-base -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>21.0</version>
         </dependency>
+        <!-- end io utils -->
 
+        <!-- jedis -->
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <!-- end jedis -->
 
+
+        <!-- groovy and test-->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
@@ -155,9 +170,14 @@
 
 
         <!-- spring and springcloud -->
+        <!--config-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
         <dependency>
@@ -185,6 +205,12 @@
             <artifactId>jolokia-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.gomeplus.oversea</groupId>
+            <artifactId>bs-common-exception</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -194,10 +220,65 @@
             <id>docker</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                    </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>build-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>tag-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>tag</goal>
+                            </goals>
+                            <configuration>
+                                <image>${docker.image.prefix}/${project.artifactId}</image>
+                                <newName>${docker.image.prefix}/${project.artifactId}</newName>
+                                <forceTags>true</forceTags>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>push-image</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                        <imageTags>
+                            <imageTag>${project.version}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <forceTags>true</forceTags>
+                        <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                                <filtering>true</filtering>
+                            </resource>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>classes/comx-conf/</include>
+                                <filtering>true</filtering>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
                 </plugins>
             </build>
         </profile>
@@ -208,6 +289,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

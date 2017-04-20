@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "module": "order",
+    "name": "order detail ext",
+    "memo": "get full orderDetail",
+    "uri": {
+      "parameters": [
+        {
+          "field": "id",
+          "name": "order id",
+          "type": "long",
+          "memo": "must"
+        }
+      ]
+    }
+  },
+  "decors": [
+    {
+      "source": {
+        "base":"springcloud",
+        "uri":"http://cloud-service-trade/trade/order?id={request.url.query.id}"
+      },
+      "decors": [
+        {
+          "field": "seller",
+          "source": {
+            "base":"springcloud",
+            "uri": "http://cloud-service-user/user/persionalInfo?id={ref.sellerId}",
+            "onError": {
+              "type": "ignore"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
