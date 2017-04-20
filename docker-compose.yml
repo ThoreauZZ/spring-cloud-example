@@ -21,6 +21,7 @@ services:
     ports:
       - "9001:9001"
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_HOST: discovery
       SERVICE_PORT: 9001
     healthcheck:
@@ -37,6 +38,7 @@ services:
       - eureka:discovery
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9000
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -59,6 +61,7 @@ services:
       - eureka:discovery
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9012
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -76,6 +79,7 @@ services:
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9002
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -95,6 +99,7 @@ services:
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9007
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -102,7 +107,7 @@ services:
         condition: service_healthy
       config:
         condition: service_healthy
-  ext:
+  client:
     image: erdaoya/cloud-service-client
     ports:
       - "9005:9005"
@@ -114,6 +119,7 @@ services:
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9005
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -133,6 +139,7 @@ services:
       - zipkin:zipkin
       - rabbitmq:rabbitmq
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9006
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -149,6 +156,7 @@ services:
       - trade:trade
       - eureka:discovery
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9010
       REGISTRY_URL: http://discovery:9001/eureka
     depends_on:
@@ -163,6 +171,7 @@ services:
       - turbine:turbine
       - eureka:discovery
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9003
       REGISTRY_URL: http://discovery:9001/eureka
       TURBINE_URL: http://discovery:9010/turbine.stream
@@ -176,6 +185,7 @@ services:
     links:
       - eureka:discovery
     environment:
+      JAVA_OPTS: -Xmx128m
       SERVICE_PORT: 9019
       REGISTRY_URL: http://discovery:9001/eureka
 #    volumes:

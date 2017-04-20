@@ -155,18 +155,20 @@ Paste url [http://localhost:9010/turbine.stream](http://localhost:9010/turbine.s
    ![](/doc/images/zipkin02.png)
 
 #### 5. service api
+
+gateway-->user
 ```
-$ curl -s http://localhost:9006/user/persionalInfo?id=1 | jq .
+$ curl -s http://localhost:9006/user/persionalInfo?id=2 | jq .
 {
   "message": "",
   "data": {
-    "id": 1,
-    "loginName": "erdaoya",
-    "nickName": "erdaoya",
+    "id": 2,
+    "loginName": "henry",
+    "nickName": "henry",
     "password": "1234",
-    "mobile": "12345678909",
-    "email": "xx@gmail.com",
-    "gender": 0,
+    "mobile": "12345678901",
+    "email": "12345678909",
+    "gender": 1,
     "registerTime": 2017
   }
 }
@@ -185,6 +187,29 @@ Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
 Connection: close
 ```
+
+gateway --> trade
+```
+$ curl -s 127.0.0.1:9006/trade/order?id=1 | jq .
+{
+  "message": "",
+  "data": {
+    "id": 1,
+    "price": 12.123,
+    "customerId": 1,
+    "itemId": null,
+    "sellerId": 2
+  }
+}
+```
+If you want the api include seller details(assume that sellerId is associated with userId)， But do not want call user from trade。
+
+`cloud-service-comx` will help you.
+
+```
+
+```
+
 
 #### 6. Admin
    
