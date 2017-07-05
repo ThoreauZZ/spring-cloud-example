@@ -27,7 +27,7 @@ The requirements for running this example on your machine are found below.
 ```bash
 git clone https://github.com/ThoreauZZ/spring-cloud-example.git
 cd spring-cloud-example
-mvn clean package -Pdocker
+mvn clean package -Pdocker -Dmaven.test.skip=true
 ```
 wait for a period of time。
 

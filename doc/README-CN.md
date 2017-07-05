@@ -19,7 +19,7 @@
 ```bash
 git clone https://github.com/ThoreauZZ/spring-cloud-example.git
 cd spring-cloud-example
-mvn clean package -Pdocker
+mvn clean package -Pdocker -Dmaven.test.skip=true
 ```
 打包并生成docker镜像，时间会有点长。
 
