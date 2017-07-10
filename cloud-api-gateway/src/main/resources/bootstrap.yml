@@ -29,12 +29,13 @@ eureka:
 
 logging:
   level:
-    com.netflix.loadbalancer: DEBUG
+    com.netflix.loadbalancer: INFO
     com.netflix.discovery: INFO
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
 
 ribbon:
   ServerListRefreshInterval: 2000
+
 
 
 zuul:
