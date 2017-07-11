@@ -23,7 +23,7 @@ public class UserRibbonClient {
 
     @HystrixCommand(fallbackMethod = "getUserFallback")
     public Object getUser(Long id) {
-        return restTemplate.getForEntity("http://USER-SERVICE/user/persionalInfo?id=" + id, Object.class).getBody();
+        return restTemplate.getForEntity("http://CLOUD-SERVICE-USER/user/persionalInfo?id=" + id, Object.class).getBody();
     }
 
     public Object getUserFallback(String id) {

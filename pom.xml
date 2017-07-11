@@ -43,7 +43,7 @@
         <!--<docker.image.prefix>${docker.repo}/erdaoya</docker.image.prefix>-->
         <docker.image.prefix>erdaoya</docker.image.prefix>
 
-        <spring-boot-admin.version>1.4.5</spring-boot-admin.version>
+        <spring-boot-admin.version>1.5.2</spring-boot-admin.version>
         <druid.version>1.0.15</druid.version>
         <lombok.version>1.12.2</lombok.version>
         <mybatis-spring-boot-starter.version>1.1.1</mybatis-spring-boot-starter.version>

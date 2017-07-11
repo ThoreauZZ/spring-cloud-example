@@ -1,6 +1,6 @@
 spring:
   application:
-    name : cloud-api-gateway
+    name: cloud-api-gateway
   cloud:
       config:
         failFast: true
@@ -18,7 +18,7 @@ spring:
             destination: springCloudBusInput
             contentType: application/json
 server:
-  port : 9006
+  port: 9006
 
 eureka:
   client:
@@ -33,6 +33,7 @@ logging:
     com.netflix.discovery: INFO
     org.springframework.security: INFO
 
+# bug in c
 ribbon:
   ServerListRefreshInterval: 2000
 
