@@ -96,7 +96,7 @@ curl -s  http://localhost:9000/cloud-service-user-dev.properties
   ]
 }
 ```
-#### 2. Eureka-dashbord : [http://localhost:9001/](http://localhost:9001/)
+#### 2. Eureka-dashboard : [http://localhost:9001/](http://localhost:9001/)
 
 ![](./doc/images/2017-02-18-14-18-44.jpg)
 

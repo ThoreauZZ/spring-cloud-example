@@ -38,7 +38,7 @@ docker-compose up -d
 
 ### 测试验证服务:
  
- 请点击 [验证](1.Test And Verify.md) 
+ 请点击 [验证](1.Verify.md) 
 
 
 ## 架构图
