@@ -4,14 +4,22 @@ English | [中文WIKI](doc/README-CN.md)
 
 ![](https://travis-ci.org/ThoreauZZ/spring-cloud-example.svg?branch=master)
 
-## technologies
+## Technologies
+Spring Cloud: Dalston SR1
 * spring cloud config 
-* Spring Cloud Netflix: eureka zull ribbon feign
+* Spring Cloud Netflix: Eureka Zuul Ribbon Feign
 * Spring Cloud Bus
-* Spring Cloud Sleuth + zipkin + mysql
-* maven + docker 
+* Spring Cloud Sleuth + Zipkin + Mysql
+
+Maven Plugin
+* git-commit-id-plugin
+* docker-maven-plugin
+* maven-resources-plugin
+
+Orthers
 * swagger
-* rabbitmq mybatis
+* rabbitmq 
+* mybatis
 
 
 ## Quick Start
