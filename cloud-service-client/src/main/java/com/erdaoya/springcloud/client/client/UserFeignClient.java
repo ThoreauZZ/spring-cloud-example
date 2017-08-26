@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "cloud-service-user")
 public interface UserFeignClient {
 
-
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/user/personalInfo",method = RequestMethod.GET)
     Object getUser(@RequestParam(value = "id") String id);
-
-
 }

@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@RequestMapping("/user/persionalInfo")
+@RequestMapping("/user/personalInfo")
 public class UserController {
 
     @Autowired
     private UserDao userDao;
 
-    @ApiOperation(value = "get userinfo by id", notes = "")
+    @ApiOperation(value = "get userInfo by id", notes = "")
     @ApiImplicitParam(name = "id", value = "user id ", required = true, paramType = "query")
     @RequestMapping(method = RequestMethod.GET)
     public User doGet(@RequestParam Long id) {
@@ -33,7 +33,7 @@ public class UserController {
         return userDao.selectUserById(id);
     }
 
-    @ApiOperation(value = "create userinfo", notes = "")
+    @ApiOperation(value = "create userInfo", notes = "")
     @ApiImplicitParam(name = "user", value = "user vo ", required = true, dataType = "User")
     @RequestMapping(method = RequestMethod.POST)
     public void doPost(User User) {
