@@ -147,9 +147,7 @@ $curl -s -H "Accept:application/json" http://localhost:9001/eureka/apps | jq '.a
   "prot": 9006
 }
 ```
-#### 3. Turbine-dashbord : [http://localhost:9010/hystrix](http://localhost:9010/hystrix)
-
-Hystrix : http://10.69.42.86:9005/ext/user?id=1
+#### 3. Turbine-dashboard : [http://localhost:9010/hystrix](http://localhost:9010/hystrix)
 
 ![](/doc/images/Hystrix-Dashboard.png)
 
@@ -168,7 +166,7 @@ Paste url [http://localhost:9010/turbine.stream](http://localhost:9010/turbine.s
 
 gateway-->user
 ```
-$ curl -s http://localhost:9006/user/persionalInfo?id=2 | jq .
+$ curl -s http://localhost:9006/user/personalInfo?id=2 | jq .
 {
   "message": "",
   "data": {
@@ -185,7 +183,7 @@ $ curl -s http://localhost:9006/user/persionalInfo?id=2 | jq .
 ```
 
 ```
-$ curl -s http://localhost:9006/user/persionalInfo?id=3 | jq .
+$ curl -s http://localhost:9006/user/personalInfo?id=3 | jq .
 {
   "message": "user not found",
   "data": {}
@@ -212,6 +210,34 @@ $ curl -s 127.0.0.1:9006/trade/order?id=1 | jq .
   }
 }
 ```
+feign -> user 
+```bash
+curl -s 'http://192.168.99.100:9005/client/feign?id=1' |jq .
+{
+  "id": 1,
+  "loginName": "erdaoya",
+  "nickName": "erdaoya",
+  "password": "1234",
+  "mobile": "12345678909",
+  "email": "xx@gmail.com",
+  "gender": 0,
+  "registerTime": 2017
+}
+```
+ribbon -> trade
+```bash
+$ curl -s 'http://192.168.99.100:9005/client/trade/order?id=1' |jq .
+{
+  "id": 1,
+  "price": 12.123,
+  "customerId": 1,
+  "itemId": null,
+  "sellerId": 2
+}
+```
+
+
+
 If you want the api include seller details(assume that sellerId is associated with userId)， But do not want call user from trade。
 
 `cloud-service-comx` will help you.
@@ -245,7 +271,7 @@ json config: `api/ext/trade/order/get.json`
           "field": "seller",
           "source": {
             "base":"springcloud",
-            "uri": "http://cloud-service-user/user/persionalInfo?id={ref.sellerId}",
+            "uri": "http://cloud-service-user/user/personalInfo?id={ref.sellerId}",
             "onError": {
               "type": "ignore"
             }
@@ -256,7 +282,7 @@ json config: `api/ext/trade/order/get.json`
   ]
 }
 ```
-gatewat --> cloud-service-comx :
+gateway --> cloud-service-comx :
 ```
 $ curl -s 127.0.0.1:9006/ext/trade/order?id=1 | jq .
   {
