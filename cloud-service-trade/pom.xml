@@ -19,7 +19,6 @@
         <dependency>
             <groupId>com.erdaoya</groupId>
             <artifactId>cloud-common-exception</artifactId>
-            <version>${cloud-common-exception.version}</version>
         </dependency>
 
         <dependency>
