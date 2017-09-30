@@ -21,7 +21,11 @@ server:
 ---
 spring:
   profiles: dev
-
+  datasource:
+    url: jdbc:mysql://192.168.99.100:3306/configCenter
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
 eureka:
   client:
     serviceUrl:

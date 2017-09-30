@@ -1,17 +1,18 @@
 package com.erdaoya.springcloud.config;
 
+import com.erdaoya.springcloud.config.config.EnableMysqlConfigServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
  * 2017/1/13
- * @author erdaoya
+ * @author thoreau
  * @since 1.0
  */
 
-@EnableConfigServer
+//@EnableConfigServer
+@EnableMysqlConfigServer
 @SpringBootApplication
 @EnableDiscoveryClient
 public class ConfigApplication {
