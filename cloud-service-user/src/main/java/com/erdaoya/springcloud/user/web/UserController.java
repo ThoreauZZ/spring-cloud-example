@@ -30,7 +30,7 @@ public class UserController {
         if(user == null){
             throw new C404Exception("user not found");
         }
-        return userDao.selectUserById(id);
+        return user;
     }
 
     @ApiOperation(value = "create userInfo", notes = "")

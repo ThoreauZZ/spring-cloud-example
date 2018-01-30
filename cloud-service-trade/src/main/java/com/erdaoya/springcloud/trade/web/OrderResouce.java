@@ -21,13 +21,13 @@ public class OrderResouce {
     private Double price;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Order doGet(@RequestParam Long id) {
+    public Order doGet(@RequestParam Long id) throws InterruptedException {
         if (id == 1) {
             Order order = new Order();
             order.setId(id);
             order.setCustomerId(1L);
             order.setPrice(price);
-            order.setSellerId(2L);
+            order.setSellerId(1L);
             return order;
         } else {
             throw new C404Exception("订单不存在");

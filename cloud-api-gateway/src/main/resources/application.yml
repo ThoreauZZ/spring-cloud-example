@@ -1,4 +1,11 @@
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 6000
 ribbon:
   ConnectTimeout: 3000
-  ReadTimeout: 60000
+  ReadTimeout: 3000
+  retryableStatusCodes: 500
+  MaxAutoRetriesNextServer: 3
+  MaxAutoRetries: 0
+  okhttp.enabled: true
+
+zuul:
+  retryable: true
