@@ -9,10 +9,14 @@
 
 ### 工程说明
 工程名就已经说明了用途
+* cloud-project-dependencies： bom定义，分离maven的依赖版本号和其他maven配置
 * cloud-api-gateway：Zuul实现网关，自定义了返回协议
 * cloud-common-exception：自定义了绑定http状态码的异常
 * cloud-common-mvn-custom：自定义springMvc处理，比如对Jackson注解无法处理泛型null值
 * cloud-service-comx：通过json配置文件，对接口做自动组装
+* spring-boot-starter-redisson: 一个starter封装实例，包含@EnableXXX、@XXXAutoCongiguration、FailureAnalyzer、HealthIndicator
+* cloud-common-actuator-maven: 扩展一个新actuator接口，通过`/maven`能查看所包含的jar包及其版本号
+
 
 ### 克隆并构建
 
@@ -48,3 +52,6 @@ docker-compose up -d
 ### 高可用
 ### 注册中心集群
 [单击查看](eureka-cluster.md)
+
+### TODO
+k8s 示例
