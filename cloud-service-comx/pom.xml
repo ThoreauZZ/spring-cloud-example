@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>9.4.0.v20161208</version>
+            <version>9.4.41.v20210516</version>
         </dependency>
         <!-- end servers -->
         <!-- netty -->
