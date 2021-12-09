@@ -13,7 +13,7 @@
     <properties>
         <start-class>com.erdaoya.springcloud.comx.boot.server.ComxSpringCloudApplication</start-class>
         <nettygroup>io.netty</nettygroup>
-        <nettyversion>4.1.50.Final</nettyversion>
+        <nettyversion>4.1.71.Final</nettyversion>
     </properties>
 
     <parent>
